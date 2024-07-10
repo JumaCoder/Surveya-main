@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7CABBFC7-4A6B-4EBF-838E-A39A2CB07D53}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Surveya_Service</RootNamespace>
+    <AssemblyName>Surveya_Service</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\..\..\..\..\..\..\Software\Dev\rrzsa-surveya_service_and_webapp-e82fcc8a02db\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Dropbox.Api">
+      <HintPath>..\packages\Dropbox.Api.3.4.0\lib\net45\Dropbox.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\..\..\..\..\Software\Dev\rrzsa-surveya_service_and_webapp-e82fcc8a02db\dlls\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\..\..\..\..\..\Software\Dev\rrzsa-surveya_service_and_webapp-e82fcc8a02db\dlls\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Projects\third-party\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RRZTools">
+      <HintPath>..\..\..\..\..\..\..\Software\Dev\rrzsa-surveya_service_and_webapp-e82fcc8a02db\dlls\RRZTools.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AuditedResponse\test.txt" />
+    <Content Include="DocumentManager\readme.txt" />
+    <Content Include="EmailTemplates\CRMEnumeratorAssigned.html" />
+    <Content Include="EmailTemplates\CRMResponseSubmited.html" />
+    <Content Include="EmailTemplates\EmailTemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\EmailTemplateSurveya.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\ForgotPassword.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\GenerateInvoice.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\NewCompanyUserPackage.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\NewProject.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\NewProjectTeamMember.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\NewSurveyTeamMember.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\NewUser.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\NewUserSignUp.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\NewUserSignUpSurveya.html" />
+    <Content Include="EmailTemplates\PasswordReset.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\Receipt.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\RemoveProjectTeamMember.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\RequestProjectDocuments.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\ResetPassword.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\SurveyaCRMEmailTemplate.html" />
+    <Content Include="EmailTemplates\SurveyaEmailTemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\UpdateCompanyUserPackage.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\UpdateProject.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\UpdateUser.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\ValidateLoginAttempt.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\VerifiedEmailAddress.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\VerifyEmailAddress.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EmailTemplates\WelcomeProjectTeam.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global.asax" />
+    <Content Include="Images\Surveyor_pin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Surveyor_thumb.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logs\test.txt" />
+    <Content Include="Surveya_Service.svc" />
+    <Content Include="old methods.txt" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActivityStream.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApplicationRightsInRole.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Application_Rights.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Applications.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Membership.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Membership_GetPasswordWithFormat_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Membership_GetPassword_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Membership_GetUserByName_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Membership_GetUserByUserId_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Paths.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_PersonalizationAllUsers.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_PersonalizationPerUser.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Profile.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Profile_GetProperties_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_SchemaVersions.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Users.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_UsersInRoles_RemoveUsersFromRoles_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_WebEvent_Events.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AssumeCompanyHistory.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AuditedRespons.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AuthorizeLogin.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CheckUserHasRight_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Company.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyCart.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyPackage.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyPackageHistory.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyUser.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Coupon.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CRMTrader.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CRMTraderHistory.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CRMTraderNote.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Document.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DynamicReport.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DynamicReportFilter.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Feature.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FilterActivityStream_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetActiveCompanyUsersNotInProject_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetActiveProjectUsersNotInSurvey_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetCompanyCurrentPackage_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetCompanyFuturePackages_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetCompanyUsersInProject_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetInvoiceLineItem_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetInvoice_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetNonPaidPackagesForCompany_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetPaidPackagesForCompany_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetProjectDetails_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetResponseSyncNumbers_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetResponses_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetRolesForUser_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetSurveyaDetails_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetSurveyDetails_Result.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalSetting.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helper.cs" />
+    <Compile Include="Invoice.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceLineItem.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ISurveya_Service.cs" />
+    <Compile Include="Package.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PackageFeature.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentHistory.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Project.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectTeam.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Question.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionGroup.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionPiping.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionRegex.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionRow.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionType.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionValue.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReceiptHistory.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResetPasswordRequest.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Respons.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResponseElement.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResponseKeyValue.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResponseValue.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SMS\AppSettings.cs" />
+    <Compile Include="SMS\GetBalance_SMSPortal_DTO.cs" />
+    <Compile Include="SMS\RRZ_SMS.cs" />
+    <Compile Include="SMS\SendSMS_SMSPortal_DTO.cs" />
+    <Compile Include="SMS\SMSSettings.cs" />
+    <Compile Include="Survey.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SurveyaDetail.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SurveyaModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SurveyaModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SurveyaModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SurveyaModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SurveyaModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Surveya_Service.svc.cs">
+      <DependentUpon>Surveya_Service.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SurveyTeam.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SyncRequest.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SysInfo.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vaccination.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VerifyEmailRequest.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_aspnet_Applications.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_aspnet_MembershipUsers.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_aspnet_Profiles.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_aspnet_Roles.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_aspnet_Users.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_aspnet_UsersInRoles.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_aspnet_WebPartState_Paths.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_aspnet_WebPartState_Shared.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_aspnet_WebPartState_User.cs">
+      <DependentUpon>SurveyaModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
+    <None Include="Properties\PublishProfiles\SurveyaService.pubxml" />
+    <EntityDeploy Include="SurveyaModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SurveyaModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="SurveyaModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SurveyaModel.edmx</DependentUpon>
+      <LastGenOutput>SurveyaModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="SurveyaModel.edmx.diagram">
+      <DependentUpon>SurveyaModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="SurveyaModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SurveyaModel.edmx</DependentUpon>
+      <LastGenOutput>SurveyaModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53695</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:53688/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

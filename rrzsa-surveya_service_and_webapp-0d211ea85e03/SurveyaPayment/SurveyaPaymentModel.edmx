@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Surveya_DevModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="RegistrationNumber" Type="varchar" MaxLength="256" />
+          <Property Name="VatNumber" Type="varchar" MaxLength="128" />
+          <Property Name="Logo" Type="varbinary(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="PhysicalAddress" Type="varchar(max)" />
+          <Property Name="billEmail" Type="varchar" MaxLength="256" />
+          <Property Name="alternateBillEmail" Type="varchar" MaxLength="256" />
+          <Property Name="postalCode" Type="varchar" MaxLength="256" />
+          <Property Name="city" Type="varchar" MaxLength="256" />
+          <Property Name="country" Type="varchar" MaxLength="256" />
+          <Property Name="LogoSM" Type="varbinary(max)" />
+          <Property Name="SelectedSkin" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="CompanyCart">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyPackageID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FeatureID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompanyPackage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateSignedUp" Type="datetime" />
+          <Property Name="DateExpires" Type="datetime" />
+          <Property Name="NumberMonthsSignedUpFor" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsCompleted" Type="bit" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="1" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="DateDeactivated" Type="datetime" />
+          <Property Name="DeactivatedBy" Type="uniqueidentifier" />
+          <Property Name="DateActivated" Type="datetime" />
+          <Property Name="ActivatedBy" Type="uniqueidentifier" />
+          <Property Name="PackageID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NumberOfSurveys" Type="int" />
+          <Property Name="NumberOfQuestions" Type="int" />
+          <Property Name="NumberOfUsers" Type="int" />
+          <Property Name="NumberOfResponses" Type="int" />
+          <Property Name="PackageName" Type="varchar" MaxLength="256" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="NumberOfProjects" Type="int" />
+          <Property Name="BasicReporting" Type="bit" />
+          <Property Name="AdvancedReporting" Type="bit" />
+          <Property Name="Excel" Type="bit" />
+          <Property Name="PDF" Type="bit" />
+          <Property Name="CSV" Type="bit" />
+          <Property Name="Piping" Type="bit" />
+          <Property Name="Summing" Type="bit" />
+          <Property Name="WhiteLabelling" Type="bit" />
+          <Property Name="PhotoCamera" Type="bit" />
+          <Property Name="GeoServices" Type="bit" />
+          <Property Name="Signatures" Type="bit" />
+          <Property Name="UniqueID" Type="bit" />
+          <Property Name="DateStart" Type="datetime" />
+          <Property Name="PaymentType" Type="varchar" MaxLength="256" />
+          <Property Name="MarkAsViewed" Type="bit" />
+          <Property Name="PaymentStatus" Type="varchar" MaxLength="256" />
+          <Property Name="PaymentErrorStatus" Type="varchar(max)" />
+          <Property Name="PaymentPending" Type="bit" />
+          <Property Name="DiscountPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="HasDiscount" Type="bit" />
+          <Property Name="DiscountValue" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DiscountDescription" Type="varchar(max)" />
+          <Property Name="PackageStartingPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OptionalFeaturesPrice" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="CompanyPackageHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyPackageID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="Message" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+          <Property Name="CompanyID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="RegistrationNumber" Type="varchar" MaxLength="256" />
+          <Property Name="VatNumber" Type="varchar" MaxLength="128" />
+          <Property Name="PhysicalAddress" Type="varchar(max)" />
+          <Property Name="PackageID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyPackageID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PackageName" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="PaymentHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyPackageID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateStarted" Type="datetime" />
+          <Property Name="DateCompleted" Type="datetime" />
+          <Property Name="PaymentStatus" Type="varchar(max)" />
+          <Property Name="TransactionStatus" Type="varchar" MaxLength="256" />
+          <Property Name="PayRequestID" Type="varchar" MaxLength="256" />
+          <Property Name="InvoiceID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AmountPaid" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PaymentEmail" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="PaymentType" Type="varchar" MaxLength="256" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ReceiptHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PaymentID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyPackageID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReceiptDate" Type="datetime" Nullable="false" />
+          <Property Name="ReceiptDescription" Type="varchar(max)" Nullable="false" />
+          <Property Name="PackageName" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="CompanyID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="EmailedTo" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="AmountPaid" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="Surveya_DevModelStoreContainer">
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanyCart" EntityType="Self.CompanyCart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanyPackage" EntityType="Self.CompanyPackage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanyPackageHistory" EntityType="Self.CompanyPackageHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentHistory" EntityType="Self.PaymentHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReceiptHistory" EntityType="Self.ReceiptHistory" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Surveya_DevModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CompanyID" Type="Guid" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegistrationNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="VatNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="PhysicalAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PackageID" Type="Guid" Nullable="false" />
+          <Property Name="CompanyPackageID" Type="Guid" Nullable="false" />
+          <Property Name="PackageName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PaymentHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CompanyPackageID" Type="Guid" Nullable="false" />
+          <Property Name="DateStarted" Type="DateTime" Precision="3" />
+          <Property Name="DateCompleted" Type="DateTime" Precision="3" />
+          <Property Name="PaymentStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionStatus" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="PayRequestID" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceID" Type="Guid" Nullable="false" />
+          <Property Name="AmountPaid" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PaymentEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PaymentType" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ReceiptHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="PaymentID" Type="Guid" Nullable="false" />
+          <Property Name="CompanyPackageID" Type="Guid" Nullable="false" />
+          <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReceiptDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PackageName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompanyID" Type="Guid" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailedTo" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AmountPaid" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="Surveya_DevEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+          <EntitySet Name="PaymentHistories" EntityType="Self.PaymentHistory" />
+          <EntitySet Name="ReceiptHistories" EntityType="Self.ReceiptHistory" />
+          <EntitySet Name="CompanyPackageHistories" EntityType="Surveya_DevModel.CompanyPackageHistory" />
+          <EntitySet Name="Companies" EntityType="Surveya_DevModel.Company" />
+          <EntitySet Name="CompanyCarts" EntityType="Surveya_DevModel.CompanyCart" />
+          <EntitySet Name="CompanyPackages" EntityType="Surveya_DevModel.CompanyPackage" />
+        </EntityContainer>
+        <EntityType Name="CompanyPackageHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CompanyPackageID" Type="Guid" Nullable="false" />
+          <Property Name="CompanyID" Type="Guid" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="RegistrationNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="VatNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="PhysicalAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="billEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="alternateBillEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="postalCode" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="LogoSM" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="SelectedSkin" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CompanyCart">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CompanyPackageID" Type="Guid" Nullable="false" />
+          <Property Name="FeatureID" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompanyPackage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CompanyID" Type="Guid" Nullable="false" />
+          <Property Name="DateSignedUp" Type="DateTime" Precision="3" />
+          <Property Name="DateExpires" Type="DateTime" Precision="3" />
+          <Property Name="NumberMonthsSignedUpFor" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsCompleted" Type="Boolean" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="DateDeactivated" Type="DateTime" Precision="3" />
+          <Property Name="DeactivatedBy" Type="Guid" />
+          <Property Name="DateActivated" Type="DateTime" Precision="3" />
+          <Property Name="ActivatedBy" Type="Guid" />
+          <Property Name="PackageID" Type="Guid" Nullable="false" />
+          <Property Name="NumberOfSurveys" Type="Int32" />
+          <Property Name="NumberOfQuestions" Type="Int32" />
+          <Property Name="NumberOfUsers" Type="Int32" />
+          <Property Name="NumberOfResponses" Type="Int32" />
+          <Property Name="PackageName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NumberOfProjects" Type="Int32" />
+          <Property Name="BasicReporting" Type="Boolean" />
+          <Property Name="AdvancedReporting" Type="Boolean" />
+          <Property Name="Excel" Type="Boolean" />
+          <Property Name="PDF" Type="Boolean" />
+          <Property Name="CSV" Type="Boolean" />
+          <Property Name="Piping" Type="Boolean" />
+          <Property Name="Summing" Type="Boolean" />
+          <Property Name="WhiteLabelling" Type="Boolean" />
+          <Property Name="PhotoCamera" Type="Boolean" />
+          <Property Name="GeoServices" Type="Boolean" />
+          <Property Name="Signatures" Type="Boolean" />
+          <Property Name="UniqueID" Type="Boolean" />
+          <Property Name="DateStart" Type="DateTime" Precision="3" />
+          <Property Name="PaymentType" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="MarkAsViewed" Type="Boolean" />
+          <Property Name="PaymentStatus" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentErrorStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentPending" Type="Boolean" />
+          <Property Name="DiscountPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="HasDiscount" Type="Boolean" />
+          <Property Name="DiscountValue" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DiscountDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PackageStartingPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OptionalFeaturesPrice" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Surveya_DevModelStoreContainer" CdmEntityContainer="Surveya_DevEntities">
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="Surveya_DevModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="VatNumber" ColumnName="VatNumber" />
+                <ScalarProperty Name="PhysicalAddress" ColumnName="PhysicalAddress" />
+                <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+                <ScalarProperty Name="CompanyPackageID" ColumnName="CompanyPackageID" />
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentHistories">
+            <EntityTypeMapping TypeName="Surveya_DevModel.PaymentHistory">
+              <MappingFragment StoreEntitySet="PaymentHistory">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CompanyPackageID" ColumnName="CompanyPackageID" />
+                <ScalarProperty Name="DateStarted" ColumnName="DateStarted" />
+                <ScalarProperty Name="DateCompleted" ColumnName="DateCompleted" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="TransactionStatus" ColumnName="TransactionStatus" />
+                <ScalarProperty Name="PayRequestID" ColumnName="PayRequestID" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+                <ScalarProperty Name="PaymentEmail" ColumnName="PaymentEmail" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReceiptHistories">
+            <EntityTypeMapping TypeName="Surveya_DevModel.ReceiptHistory">
+              <MappingFragment StoreEntitySet="ReceiptHistory">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="CompanyPackageID" ColumnName="CompanyPackageID" />
+                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+                <ScalarProperty Name="ReceiptDescription" ColumnName="ReceiptDescription" />
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="EmailedTo" ColumnName="EmailedTo" />
+                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyPackageHistories">
+            <EntityTypeMapping TypeName="Surveya_DevModel.CompanyPackageHistory">
+              <MappingFragment StoreEntitySet="CompanyPackageHistory">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="CompanyPackageID" ColumnName="CompanyPackageID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="Surveya_DevModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="SelectedSkin" ColumnName="SelectedSkin" />
+                <ScalarProperty Name="LogoSM" ColumnName="LogoSM" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="postalCode" ColumnName="postalCode" />
+                <ScalarProperty Name="alternateBillEmail" ColumnName="alternateBillEmail" />
+                <ScalarProperty Name="billEmail" ColumnName="billEmail" />
+                <ScalarProperty Name="PhysicalAddress" ColumnName="PhysicalAddress" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="VatNumber" ColumnName="VatNumber" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyCarts">
+            <EntityTypeMapping TypeName="Surveya_DevModel.CompanyCart">
+              <MappingFragment StoreEntitySet="CompanyCart">
+                <ScalarProperty Name="FeatureID" ColumnName="FeatureID" />
+                <ScalarProperty Name="CompanyPackageID" ColumnName="CompanyPackageID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyPackages">
+            <EntityTypeMapping TypeName="Surveya_DevModel.CompanyPackage">
+              <MappingFragment StoreEntitySet="CompanyPackage">
+                <ScalarProperty Name="OptionalFeaturesPrice" ColumnName="OptionalFeaturesPrice" />
+                <ScalarProperty Name="PackageStartingPrice" ColumnName="PackageStartingPrice" />
+                <ScalarProperty Name="DiscountDescription" ColumnName="DiscountDescription" />
+                <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
+                <ScalarProperty Name="HasDiscount" ColumnName="HasDiscount" />
+                <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
+                <ScalarProperty Name="PaymentPending" ColumnName="PaymentPending" />
+                <ScalarProperty Name="PaymentErrorStatus" ColumnName="PaymentErrorStatus" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="MarkAsViewed" ColumnName="MarkAsViewed" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+                <ScalarProperty Name="UniqueID" ColumnName="UniqueID" />
+                <ScalarProperty Name="Signatures" ColumnName="Signatures" />
+                <ScalarProperty Name="GeoServices" ColumnName="GeoServices" />
+                <ScalarProperty Name="PhotoCamera" ColumnName="PhotoCamera" />
+                <ScalarProperty Name="WhiteLabelling" ColumnName="WhiteLabelling" />
+                <ScalarProperty Name="Summing" ColumnName="Summing" />
+                <ScalarProperty Name="Piping" ColumnName="Piping" />
+                <ScalarProperty Name="CSV" ColumnName="CSV" />
+                <ScalarProperty Name="PDF" ColumnName="PDF" />
+                <ScalarProperty Name="Excel" ColumnName="Excel" />
+                <ScalarProperty Name="AdvancedReporting" ColumnName="AdvancedReporting" />
+                <ScalarProperty Name="BasicReporting" ColumnName="BasicReporting" />
+                <ScalarProperty Name="NumberOfProjects" ColumnName="NumberOfProjects" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+                <ScalarProperty Name="NumberOfResponses" ColumnName="NumberOfResponses" />
+                <ScalarProperty Name="NumberOfUsers" ColumnName="NumberOfUsers" />
+                <ScalarProperty Name="NumberOfQuestions" ColumnName="NumberOfQuestions" />
+                <ScalarProperty Name="NumberOfSurveys" ColumnName="NumberOfSurveys" />
+                <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+                <ScalarProperty Name="ActivatedBy" ColumnName="ActivatedBy" />
+                <ScalarProperty Name="DateActivated" ColumnName="DateActivated" />
+                <ScalarProperty Name="DeactivatedBy" ColumnName="DeactivatedBy" />
+                <ScalarProperty Name="DateDeactivated" ColumnName="DateDeactivated" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="NumberMonthsSignedUpFor" ColumnName="NumberMonthsSignedUpFor" />
+                <ScalarProperty Name="DateExpires" ColumnName="DateExpires" />
+                <ScalarProperty Name="DateSignedUp" ColumnName="DateSignedUp" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

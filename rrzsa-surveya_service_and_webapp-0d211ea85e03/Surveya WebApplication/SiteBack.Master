@@ -1,0 +1,148 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SiteBack.Master.cs" Inherits="Surveya_Application.SiteMasterBack" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %></title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Styles.Render("~/bundles/thirdPartyCss") %>
+        <%: Styles.Render("~/Content/AdminLTE") %>
+        <%: Scripts.Render("~/bundles/GlobalJS") %>
+    </asp:PlaceHolder>
+
+   
+    <asp:ContentPlaceHolder ID="HeaderContent" runat="server">
+
+    </asp:ContentPlaceHolder>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+</head>
+<body>
+    <form style="padding: 0; margin: 0;" runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="respond" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+        <div class="fixed">
+            <nav class="top-bar" data-topbar>
+
+                <ul class="title-area">
+                    <li class="name">
+                        <h1><a href="#">Administrative Console</a></h1>
+                    </li>
+                    <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+                </ul>
+                <section class="top-bar-section">
+
+
+                    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                        <AnonymousTemplate>
+                            <ul class="left">
+                                <li id="mnuHome"><a runat="server" href="~/">Home</a></li>
+                                <li id="mnuAbout"><a runat="server" href="~/About">About</a></li>
+                                <li id="mnuContact"><a runat="server" href="~/Contact">Contact</a></li>
+                            </ul>
+                            <ul class="right">
+                                <li><a runat="server" href="~/Account/Register">Register</a></li>
+                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                            </ul>
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <ul class="left">
+                                <li id="mnuHome"><a runat="server" href="~/">Home</a></li>
+                                <li id="mnuAbout"><a runat="server" href="~/About">About</a></li>
+                                <li id="mnuContact"><a runat="server" href="~/Contact">Contact</a></li>
+                                <li id="mnuAdministration" class="has-dropdown">
+                                    <a href="#">Administration</a>
+                                    <ul class="dropdown">
+                                        <li id="mnuAdminITem"><a runat="server" href="~/Administration/aspxfilehere">Admin Menu Item</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="right">
+                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                <li>
+                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                </li>
+                            </ul>
+                        </LoggedInTemplate>
+                        <RoleGroups>
+                            <asp:RoleGroup Roles="Administrator">
+                                <ContentTemplate>
+                                    <ul class="left">
+                                        <li id="mnuHome"><a runat="server" href="~/">Home</a></li>
+                                        <li id="mnuAbout"><a runat="server" href="~/About">About</a></li>
+                                        <li id="mnuContact"><a runat="server" href="~/Contact">Contact</a></li>
+                                        <li id="mnuAdministration" class="has-dropdown">
+                                            <a href="#">Administration</a>
+                                            <ul class="dropdown">
+                                                <li id="mnuServiceAccounts"><a runat="server" href="~/Administration/Service Accounts/ServiceAccounts.aspx">Service Accounts</a></li>
+                                                <li id="mnuReportIt"><a runat="server" href="#">Report It</a></li>
+                                                <li id="mnuJobs"><a runat="server" href="#">Jobs</a></li>
+                                                <li id="mnuCouncillors"><a runat="server" href="#">Councillors</a></li>
+                                                <li id="mnuNews"><a runat="server" href="#">News / Alerts</a></li>
+                                                <li id="mnuLeisureCenters"><a runat="server" href="#">Leisure Centres</a></li>
+                                                <li id="mnuNearest"><a runat="server" href="#">Find My Nearest</a></li>
+                                                <li id="mnuEmergencyNumbers"><a runat="server" href="#">Emergency Numbers</a></li>
+                                                <li id="mnuQueries"><a runat="server" href="#">Mobile App Queries</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <ul class="right">
+                                        <li id="mnuGlobalAdministration" class="has-dropdown">
+                                            <a href="#" runat="server">Global Administration</a>
+                                            <ul class="dropdown">
+                                               <li id="mnuRightsAndRoles"><a href="#" runat="server">Manage Rights and Roles</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                        <li>
+                                            <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                        </li>
+                                    </ul>
+                                </ContentTemplate>
+                            </asp:RoleGroup>
+                        </RoleGroups>
+
+                    </asp:LoginView>
+                </section>
+
+            </nav>
+        </div>
+        <div class="row" style="text-align: left;">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <p>Copyright &copy; <%: DateTime.Now.Year %> - RRZ Innoavations (PTY) LTD</p>
+            </footer>
+        </div>
+    </form>
+    <%: Scripts.Render("~/bundles/thirdPartyJS") %>
+    <script src="../AdminLTE/plugins/ckeditor/ckeditor.js"></script>
+    <script src="../AdminLTE/plugins/ckeditor/lang/en.js"></script>
+    <asp:ContentPlaceHolder ID="CustomScriptHolder" runat="server">
+
+    </asp:ContentPlaceHolder>
+</body>
+</html>

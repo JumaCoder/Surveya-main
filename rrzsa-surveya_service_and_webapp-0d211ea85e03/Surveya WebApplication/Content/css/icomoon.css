@@ -1,0 +1,163 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?t9a06f');
+  src:  url('../fonts/icomoon.woff?t9a06f') format('woff'),
+    url('../fonts/icomoon.eot?t9a06f#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?t9a06f') format('truetype'),
+    url('../fonts/icomoon.svg?t9a06f#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-add:before {
+  content: "\e900";
+}
+.icon-delete:before {
+  content: "\e901";
+}
+.icon-logic:before {
+  content: "\e902";
+}
+.icon-branding:before {
+  content: "\e903";
+}
+.icon-edit:before {
+  content: "\e904";
+}
+.icon-question:before {
+  content: "\e905";
+}
+.icon-numberusers:before {
+  content: "\e906";
+}
+.icon-recent:before {
+  content: "\e907";
+}
+.icon-roles:before {
+  content: "\e908";
+}
+.icon-signout:before {
+  content: "\e909";
+}
+.icon-signout2:before {
+  content: "\e90a";
+}
+.icon-bell:before {
+  content: "\e90b";
+}
+.icon-flag:before {
+  content: "\e90c";
+}
+.icon-maint:before {
+  content: "\e90d";
+}
+.icon-projects:before {
+  content: "\e90e";
+}
+.icon-surveys:before {
+  content: "\e90f";
+}
+.icon-company:before {
+  content: "\e910";
+}
+.icon-dashboard:before {
+  content: "\e911";
+}
+.icon-users:before {
+  content: "\e912";
+}
+.icon-Email:before {
+  content: "\e913";
+}
+.icon-Number:before {
+  content: "\e914";
+}
+.icon-Signature:before {
+  content: "\e915";
+}
+.icon-Camera:before {
+  content: "\e916";
+}
+.icon-Location:before {
+  content: "\e917";
+}
+.icon-Radio-Buttons .path1:before {
+  content: "\e918";
+  color: rgb(35, 31, 32);
+}
+.icon-Radio-Buttons .path2:before {
+  content: "\e919";
+  margin-left: -1.380859375em;
+  color: rgb(0, 0, 0);
+}
+.icon-Radio-Buttons .path3:before {
+  content: "\e91a";
+  margin-left: -1.380859375em;
+  color: rgb(35, 31, 32);
+}
+.icon-Radio-Buttons .path4:before {
+  content: "\e91b";
+  margin-left: -1.380859375em;
+  color: rgb(0, 0, 0);
+}
+.icon-Radio-Buttons .path5:before {
+  content: "\e91c";
+  margin-left: -1.380859375em;
+  color: rgb(35, 31, 32);
+}
+.icon-Radio-Buttons .path6:before {
+  content: "\e91d";
+  margin-left: -1.380859375em;
+  color: rgb(0, 0, 0);
+}
+.icon-Radio-Buttons .path7:before {
+  content: "\e91e";
+  margin-left: -1.380859375em;
+  color: rgb(0, 0, 0);
+}
+.icon-Radio-Buttons .path8:before {
+  content: "\e91f";
+  margin-left: -1.380859375em;
+  color: rgb(0, 0, 0);
+}
+.icon-Table:before {
+  content: "\e920";
+}
+.icon-Calculation:before {
+  content: "\e921";
+}
+.icon-Check-Boxes:before {
+  content: "\e922";
+}
+.icon-Date:before {
+  content: "\e923";
+}
+.icon-Multi-line-Textbox:before {
+  content: "\e924";
+}
+.icon-Textbox:before {
+  content: "\e925";
+}
+.icon-Dropdown-List:before {
+  content: "\e926";
+}
+.icon-Question-Group:before {
+  content: "\e927";
+}
+

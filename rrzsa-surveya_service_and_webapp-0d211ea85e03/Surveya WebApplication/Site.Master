@@ -1,0 +1,140 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Surveya_Application.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %></title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Styles.Render("~/bundles/AdminLTE_css") %>
+        <%: Styles.Render("~/bundles/thirdPartyCss") %>
+       <link href="../AdminLTE/plugins/icheck/css/all.css" rel="stylesheet" />
+    </asp:PlaceHolder>
+
+   
+    <asp:ContentPlaceHolder ID="HeaderContent" runat="server">
+
+    </asp:ContentPlaceHolder>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+</head>
+<body class="hold-transition login-page">
+    <form style="padding: 0; margin: 0;" runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="respond" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+        <footer class="footer-info">
+            <p>Copyright &copy; <%: DateTime.Now.Year %> - Surveya - <span class="version"></span></p>
+        </footer>
+       
+      <div class="loading-modal">
+         <div style="display: table-cell; vertical-align: middle; z-index: 99999">
+            <div>
+               <img src="../Content/Images/ajax-loader.gif" /><br />
+               Please wait while we process your request
+            </div>
+         </div>
+      </div>
+      <div id="ConfirmationModal" class="modal fade" tabindex="-1" role="dialog">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 id="ConfirmationHeader" class="modal-title"></h4>
+               </div>
+               <div id="ConfirmationContent" class="modal-body">
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-primary" id="continueBtn">Continue</button>
+               </div>
+            </div>
+            <!-- /.modal-content -->
+         </div>
+         <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      <div id="SuccessModal" class="modal fade" tabindex="-1" role="dialog">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 id="SuccessHeader" class="modal-title success">Success</h4>
+               </div>
+               <div id="SuccessContent" class="modal-body">
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+               </div>
+            </div>
+            <!-- /.modal-content -->
+         </div>
+         <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      <div id="ErrorModal" class="modal fade" tabindex="-1" role="dialog">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 id="ErrorHeader" class="modal-title danger">Error</h4>
+               </div>
+               <div id="ErrorContent" class="modal-body">
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" id="errorModalBtn">OK</button>
+               </div>
+            </div>
+            <!-- /.modal-content -->
+         </div>
+         <!-- /.modal-dialog -->
+      </div>
+    </form>
+    <%: Scripts.Render("~/bundles/thirdPartyJS") %>
+    <%: Scripts.Render("~/bundles/AdminLTE_js") %>
+    <script src="../AdminLTE/plugins/ckeditor/ckeditor.js"></script>
+    <script src="../AdminLTE/plugins/ckeditor/lang/en.js"></script>
+    <!--Start of Tawk.to Script-->
+<%--<script type="text/javascript">var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();(function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];s1.async=true;s1.src='https://embed.tawk.to/5a8c288b4b401e45400d1155/default';s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);})();</script>--%>
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/5aec3e415f7cdf4f0533dcc2/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <asp:ContentPlaceHolder ID="CustomScriptHolder" runat="server">
+          <script>
+            $(function () {
+               initCheck();
+            });
+         </script>
+    </asp:ContentPlaceHolder>
+</body>
+</html>

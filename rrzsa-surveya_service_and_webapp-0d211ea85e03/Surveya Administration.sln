@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surveya_Service", "Surveya Service\Surveya_Service.csproj", "{7CABBFC7-4A6B-4EBF-838E-A39A2CB07D53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surveya_Application", "Surveya WebApplication\Surveya_Application.csproj", "{E930A73A-3DBD-4D07-906D-D2634CA4CC81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveyaPayment", "SurveyaPayment\SurveyaPayment.csproj", "{683E56CB-BE6E-4EC9-9E47-96906AD7D889}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CABBFC7-4A6B-4EBF-838E-A39A2CB07D53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CABBFC7-4A6B-4EBF-838E-A39A2CB07D53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CABBFC7-4A6B-4EBF-838E-A39A2CB07D53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CABBFC7-4A6B-4EBF-838E-A39A2CB07D53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E930A73A-3DBD-4D07-906D-D2634CA4CC81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E930A73A-3DBD-4D07-906D-D2634CA4CC81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E930A73A-3DBD-4D07-906D-D2634CA4CC81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E930A73A-3DBD-4D07-906D-D2634CA4CC81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{683E56CB-BE6E-4EC9-9E47-96906AD7D889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{683E56CB-BE6E-4EC9-9E47-96906AD7D889}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{683E56CB-BE6E-4EC9-9E47-96906AD7D889}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{683E56CB-BE6E-4EC9-9E47-96906AD7D889}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,794 @@
+﻿//capture payment and package
+        public string CompletePurchaseCC(string secretKey, string companyPackageID, string dateStart, string numberMonthsSignedUpFor, string paymentAmount)
+        {
+            try
+            {
+                //remove any extra whitespaces
+                secretKey = TrimIfNotNull(secretKey);
+                paymentAmount = TrimIfNotNull(paymentAmount);
+                companyPackageID = TrimIfNotNull(companyPackageID);
+                numberMonthsSignedUpFor = TrimIfNotNull(numberMonthsSignedUpFor);
+
+                //ensure that the user is valid
+                var username = CheckUserHasRight(secretKey, "Payment");
+                if (Utils.IsError(username))
+                {
+                    return username;
+                }
+
+                //convert the id received
+                Guid CompanyPackageID;
+                if (!Guid.TryParse(companyPackageID, out CompanyPackageID))
+                {
+                    return Utils.WrapError("Company Package ID is not in the correct format");
+                }
+
+                Decimal PaymentAmount;
+                if (!Decimal.TryParse(paymentAmount, out PaymentAmount))
+                {
+                    return Utils.WrapError("Payment Amount is not in the correct format");
+                }
+
+                Int32 NumberMonthsSignedUpFor;
+                if (!Int32.TryParse(numberMonthsSignedUpFor, out NumberMonthsSignedUpFor))
+                {
+                    return Utils.WrapError("Please ensure that you enter the number of months you are signing up for");
+                }
+
+                if (NumberMonthsSignedUpFor <= 0)
+                {
+                    return Utils.WrapError("Please ensure that you sign up for 1 or more months");
+                }
+
+                DateTime DateStart;
+                if (!DateTime.TryParse(dateStart, out DateStart))
+                {
+                    return Utils.WrapError("Date Start is not in the correct format");
+                }
+
+                /*if (DateStart < DateTime.Now)
+                {
+                    return Utils.WrapError("Please ensure that your start date is not a past date");
+                }*/
+
+                Guid LoggedInUserID = (Guid)Membership.GetUser(username).ProviderUserKey;
+
+                using (Surveya_DevEntities entity = new Surveya_DevEntities())
+                {
+                    var curUser = (from u in entity.aspnet_Membership
+                                   where u.UserId == LoggedInUserID
+                                   select u).FirstOrDefault();
+
+                    // the companies package
+                    var curCompanyPackage = (from cp in entity.CompanyPackages
+                                             where cp.ID == CompanyPackageID
+                                             select cp).FirstOrDefault();
+
+                    if (curCompanyPackage == null)
+                    {
+                        return Utils.WrapError("Your package could not be found");
+                    }
+
+                    //get the invoice items for the package purchased
+                    var curInvoiceItems = (from i in entity.Invoices
+                                      join it in entity.InvoiceLineItems
+                                      on i.ID equals it.InvoiceID
+                                      where i.CompanyPackageID == curCompanyPackage.ID
+                                      select it).ToList();
+
+                    if (curInvoiceItems == null || curInvoiceItems.Count <= 0)
+                    {
+                        return Utils.WrapError("An invoice has not been generated for this purchase. Please ensure that you checkout your cart");
+                    }
+
+                    //get the invoice
+                    var curInvoice = (from i in entity.Invoices
+                                      where i.CompanyPackageID == curCompanyPackage.ID
+                                      select i).FirstOrDefault();
+
+                    if (curInvoice == null)
+                    {
+                        return Utils.WrapError("The invoice linked to this company package could not be found");
+                    }
+
+
+                    Guid InvoiceID = Guid.Empty;
+                    Decimal Price = 0;
+
+                    //cycle through each item and calculate the total cost of the invoice
+                    foreach (var item in curInvoiceItems)
+                    {
+                        Price = Price + (item.Price * item.Quantity);
+                        InvoiceID = item.InvoiceID;
+                    }
+
+                    if (PaymentAmount != Price)
+                    {
+                        return Utils.WrapError("Please ensure that you are paying the full amount for your selected package. Your package cost is " + Price);
+                    }
+
+                    //the original package signed up for
+                    var curPackage = (from p in entity.Packages
+                                      where p.ID == curCompanyPackage.PackageID
+                                      select p).FirstOrDefault();
+
+
+                    if (curPackage == null)
+                    {
+                        return Utils.WrapError("Package could not be found");
+                    }
+
+                    if (curPackage.IsActive.HasValue && !curPackage.IsActive.Value)
+                    {
+                        return Utils.WrapError("This package is no longer available. Please signup for another package");
+                    }
+
+                    //get the cart for the users package, this cart contains all optional features selected by the user
+                    var optionalFeatures = (from c in entity.CompanyCarts
+                                            join f in entity.Features
+                                            on c.FeatureID equals f.ID
+                                            join pf in entity.PackageFeatures
+                                            on f.ID equals pf.FeatureID
+                                            where c.CompanyPackageID == CompanyPackageID
+                                            select new
+                                            {
+                                                f.FriendlyName,
+                                                f.Name,
+                                                c.ID,
+                                                c.FeatureID,
+                                                pf.OptionalFeature,
+                                                pf.OptionalPrice
+                                            }).ToList();
+
+                    //get the mandatory features for the package
+                    var mandatoryFeatures = (from cp in entity.CompanyPackages
+                                             join p in entity.Packages
+                                             on cp.PackageID equals p.ID
+                                             join pf in entity.PackageFeatures
+                                             on p.ID equals pf.PackageID
+                                             join f in entity.Features
+                                             on pf.FeatureID equals f.ID
+                                             where cp.ID == CompanyPackageID && pf.OptionalFeature == false
+                                             select new
+                                             {
+                                                 f.FriendlyName,
+                                                 f.Name,
+                                                 f.ID,
+                                                 pf.OptionalFeature,
+                                                 pf.OptionalPrice
+                                             }).ToList();
+
+
+                    //set defaults for the features
+                    bool Summing = false;
+                    bool Piping = false;
+                    bool GeoServices = false;
+                    bool Signatures = false;
+                    bool PhotoCamera = false;
+                    bool WhiteLabelling = false;
+                    bool PDF = false;
+                    bool CSV = false;
+                    bool Excel = false;
+                    bool BasicReporting = false;
+                    bool AdvancedReporting = false;
+                    bool UniqueID = false;
+
+                    //cycle through all the optional features selected by the user
+                    //if there are extra features selected
+                    if (optionalFeatures != null && optionalFeatures.Count() > 0)
+                    {
+                        foreach (var feature in optionalFeatures)
+                        {
+                            //switch through the names of the features, if the optional feature matches one of these names,
+                            //set the feature to true
+                            switch (feature.Name)
+                            {
+
+                                case "Summing":
+                                    Summing = true;
+                                    break;
+
+                                case "Piping":
+                                    Piping = true;
+                                    break;
+
+                                case "GeoServices":
+                                    GeoServices = true;
+                                    break;
+
+                                case "Excel":
+                                    Excel = true;
+                                    break;
+
+                                case "AdvancedReporting":
+                                    AdvancedReporting = true;
+                                    break;
+
+                                case "PDF":
+                                    PDF = true;
+                                    break;
+
+                                case "CSV":
+                                    CSV = true;
+                                    break;
+
+                                case "WhiteLabelling":
+                                    WhiteLabelling = true;
+                                    break;
+
+                                case "PhotoCamera":
+                                    PhotoCamera = true;
+                                    break;
+
+                                case "BasicReporting":
+                                    BasicReporting = true;
+                                    break;
+
+                                case "Signatures":
+                                    Signatures = true;
+                                    break;
+
+                                case "UniqueID":
+                                    UniqueID = true;
+                                    break;
+                            }
+                        }
+                    }
+
+                    Helper.LogMessage("CompletePurchaseCC: After Optional Features " + mandatoryFeatures.Count());
+                    //cycle through all the mandatory features for the package
+                    if (mandatoryFeatures != null && mandatoryFeatures.Count() > 0)
+                    {
+                        Helper.LogMessage("CompletePurchaseCC: There a are mandatory features to add here");
+                        foreach (var feature in mandatoryFeatures)
+                        {
+                            //switch through the names of the features, if the optional feature matches one of these names,
+                            //set the feature to true
+                            switch (feature.Name)
+                            {
+
+                                case "Summing":
+                                    Summing = true;
+                                    break;
+
+                                case "Piping":
+                                    Piping = true;
+                                    break;
+
+                                case "GeoServices":
+                                    GeoServices = true;
+                                    break;
+
+                                case "Excel":
+                                    Excel = true;
+                                    break;
+
+                                case "AdvancedReporting":
+                                    AdvancedReporting = true;
+                                    break;
+
+                                case "PDF":
+                                    PDF = true;
+                                    break;
+
+                                case "CSV":
+                                    CSV = true;
+                                    break;
+
+                                case "WhiteLabelling":
+                                    WhiteLabelling = true;
+                                    break;
+
+                                case "PhotoCamera":
+                                    PhotoCamera = true;
+                                    break;
+
+                                case "BasicReporting":
+                                    BasicReporting = true;
+                                    break;
+
+                                case "Signatures":
+                                    Signatures = true;
+                                    break;
+
+                                case "UniqueID":
+                                    UniqueID = true;
+                                    break;
+                            }
+
+                            Helper.LogMessage("CompletePurchaseCC: Adding Mandatory Feature: " + Summing + ":" + Piping + ":" + GeoServices + ":" + Excel + ":" + AdvancedReporting + ":" + PDF + ":" +
+                               CSV + ":" + WhiteLabelling + ":" + PhotoCamera + ":" + BasicReporting + ":" + Signatures + ":" + UniqueID);
+                        }
+                    }
+
+
+                    //calculate the expiry date of the package
+                    DateTime CurrDate = DateTime.Now;
+                    DateTime ExpiryDate = DateStart.AddMonths(curCompanyPackage.NumberMonthsSignedUpFor.Value);
+
+                    //update the package that the company is on
+                    curCompanyPackage.IsCompleted = true;
+                    curCompanyPackage.Price = Price;
+                    curCompanyPackage.DateActivated = CurrDate;
+                    curCompanyPackage.DateStart = DateStart;
+                    curCompanyPackage.DateExpires = ExpiryDate;
+                    curCompanyPackage.PaymentType = "CC";
+                    curCompanyPackage.NumberOfSurveys = curPackage.NumberOfSurveys;
+                    curCompanyPackage.NumberOfQuestions = curPackage.NumberOfQuestions;
+                    curCompanyPackage.NumberOfUsers = curPackage.NumberOfUsers;
+                    curCompanyPackage.NumberOfResponses = curPackage.NumberOfResponses;
+                    curCompanyPackage.PackageName = curPackage.PackageName;
+                    curCompanyPackage.Description = curPackage.Description;
+                    curCompanyPackage.NumberOfProjects = curPackage.NumberOfProjects;
+                    curCompanyPackage.Summing = Summing;
+                    curCompanyPackage.Piping = Piping;
+                    curCompanyPackage.GeoServices = GeoServices;
+                    curCompanyPackage.Signatures = Signatures;
+                    curCompanyPackage.PhotoCamera = PhotoCamera;
+                    curCompanyPackage.WhiteLabelling = WhiteLabelling;
+                    curCompanyPackage.PDF = PDF;
+                    curCompanyPackage.CSV = CSV;
+                    curCompanyPackage.Excel = Excel;
+                    curCompanyPackage.BasicReporting = BasicReporting;
+                    curCompanyPackage.AdvancedReporting = AdvancedReporting;
+                    curCompanyPackage.UniqueID = UniqueID;
+
+                    //if the package is free
+                    if (Price == 0)
+                    {
+                        curCompanyPackage.IsActive = true; //activate the package on payment
+                        curCompanyPackage.PaymentStatus = "Payment Successful";
+                        curCompanyPackage.PaymentErrorStatus = "Payment Successful";
+                        curCompanyPackage.PaymentPending = false;
+
+                        DateTime CurDate = DateTime.Now;
+
+                        //save the payment
+                        SavePayment(LoggedInUserID + "", curCompanyPackage.ID + "", CurDate + "", "0", "CC");
+
+                    }
+                    else {
+                        curCompanyPackage.IsActive = false;
+                    }
+
+                    entity.CompanyPackages.Add(curCompanyPackage);
+                    entity.Entry(curCompanyPackage).State = EntityState.Modified;
+
+                    //get the cart for the users package, this cart contains all optional features selected by the user
+                    var curCart = (from c in entity.CompanyCarts
+                                   where c.CompanyPackageID == CompanyPackageID
+                                   select c).ToList();
+
+                    //remove the details from the cart,if there are any
+                    if (curCart != null && curCart.Count > 0)
+                    {
+                        entity.CompanyCarts.RemoveRange(curCart);
+                    }
+
+                    //create a new payment
+                    /*var newPayment = new Payment();
+                    newPayment.ID = Guid.NewGuid();
+                    newPayment.DatePaid = CurrDate;
+                    newPayment.AmountPaid = PaymentAmount;
+                    newPayment.InvoiceID = InvoiceID;
+                    entity.Payments.Add(newPayment);*/
+
+                    entity.SaveChanges();
+
+                    //SendEmail(EmailPurpose.GenerateInvoice, curUser.Email, curCompanyPackage.CompanyID + "", "", "", "", "", "", "", "");
+
+                    /*var curComp = (from c in entity.Companies
+                                   where c.ID == curCompanyPackage.CompanyID
+                                   select c).FirstOrDefault();
+
+                    string res2 = SystemAddCompanyPackageHistory(secretKey, curCompanyPackage.ID + "", curCompanyPackage.CompanyID + "", "Payment made by " + curComp.CompanyName + ". Payment via CC. Amount: " + paymentAmount + " on " + CurrDate.ToString("dd MMMM yyyy"));
+                    if (Utils.IsError(res2))
+                    {
+                        return res2;
+                    }
+                    string res = SystemAddCompanyPackageHistory(secretKey, companyPackageID, curCompanyPackage.CompanyID + "", curComp.CompanyName + "'s package was activated on " + CurrDate.ToString("dd MMMM yyyy") + ". Reason: Payment made via CC");
+                    return res;*/
+
+                     dynamic returnItem = new JObject();
+                     returnItem.Status = "Success";
+                     returnItem.InvoiceID = InvoiceID;
+                     return returnItem.ToString();
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                string errors = Helper.GetCleanEntityValidationErrors(ex);
+                Helper.LogError(errors, ex.ToString());
+                return Utils.WrapError(errors);
+            }
+            catch (Exception ee)
+            {
+                Helper.LogError(ee.Message, ee.StackTrace);
+                return Utils.WrapError(ee.Message);
+            }
+        }
+
+        //capture payment and package
+        public string CompletePurchaseEFT(string secretKey, string companyPackageID, string dateStart, string numberMonthsSignedUpFor, string paymentAmount)
+        {
+            try
+            {
+                //remove any extra whitespaces
+                secretKey = TrimIfNotNull(secretKey);
+                paymentAmount = TrimIfNotNull(paymentAmount);
+                companyPackageID = TrimIfNotNull(companyPackageID);
+                numberMonthsSignedUpFor = TrimIfNotNull(numberMonthsSignedUpFor);
+
+                //ensure that the user is valid
+                var username = CheckUserHasRight(secretKey, "Payment");
+                if (Utils.IsError(username))
+                {
+                    return username;
+                }
+
+                //convert the id received
+                Guid CompanyPackageID;
+                if (!Guid.TryParse(companyPackageID, out CompanyPackageID))
+                {
+                    return Utils.WrapError("Company Package ID is not in the correct format");
+                }
+
+                Decimal PaymentAmount;
+                if (!Decimal.TryParse(paymentAmount, out PaymentAmount))
+                {
+                    return Utils.WrapError("Payment Amount is not in the correct format");
+                }
+
+                int NumberMonthsSignedUpFor;
+                if (!Int32.TryParse(numberMonthsSignedUpFor.Trim(), out NumberMonthsSignedUpFor))
+                {
+                    return Utils.WrapError("Please ensure that you enter the number of months you are signing up for");
+                }
+
+                if (NumberMonthsSignedUpFor <= 0)
+                {
+                    return Utils.WrapError("Please ensure that you sign up for 1 or more months");
+                }
+                DateTime DateStart;
+                if (!DateTime.TryParse(dateStart, out DateStart))
+                {
+                    return Utils.WrapError("Date Start is not in the correct format");
+                }
+
+                Guid LoggedInUserID = (Guid)Membership.GetUser(username).ProviderUserKey;
+
+                using (Surveya_DevEntities entity = new Surveya_DevEntities())
+                {
+                    var curUser = (from u in entity.aspnet_Membership
+                                   where u.UserId == LoggedInUserID
+                                   select u).FirstOrDefault();
+
+                    // the companies package
+                    var curCompanyPackage = (from cp in entity.CompanyPackages
+                                             where cp.ID == CompanyPackageID
+                                             select cp).FirstOrDefault();
+
+                    if (curCompanyPackage == null)
+                    {
+                        return Utils.WrapError("Your package could not be found");
+                    }
+                    //get the invoice for the package purchased
+                    var curInvoice = (from i in entity.Invoices
+                                      join it in entity.InvoiceLineItems
+                                      on i.ID equals it.InvoiceID
+                                      where i.CompanyPackageID == curCompanyPackage.ID
+                                      select it).ToList();
+
+                    if (curInvoice == null || curInvoice.Count <= 0)
+                    {
+                        return Utils.WrapError("An invoice has not been generated for this purchase. Please ensure that you checkout your cart");
+                    }
+
+                    Guid InvoiceID = Guid.Empty;
+                    Decimal Price = 0;
+                    Helper.LogMessage("CompletePurchaseEFT " + Price);
+
+                    //cycle through each item and calculate the total cost of the invoice
+                    foreach (var item in curInvoice)
+                    {
+                        Helper.LogMessage("CompletePurchaseEFT " + item.LineItem);
+
+                        Price = Price + (item.Price * item.Quantity);
+
+                        Helper.LogMessage("CompletePurchaseEFT " + Price + ":" + item.Price + ":" + item.Quantity);
+
+                        InvoiceID = item.InvoiceID;
+                    }
+
+                    Helper.LogMessage("CompletePurchaseEFT Final Price " + Price);
+                    if (PaymentAmount != Price)
+                    {
+                        return Utils.WrapError("Please ensure that you are paying the full amount for your selected package. Your package cost is " + Price);
+                    }
+
+                    //the original package signed up for
+                    var curPackage = (from p in entity.Packages
+                                      where p.ID == curCompanyPackage.PackageID
+                                      select p).FirstOrDefault();
+
+                    if (curPackage == null)
+                    {
+                        return Utils.WrapError("Package could not be found");
+                    }
+
+                    if (curPackage.IsActive.HasValue && !curPackage.IsActive.Value)
+                    {
+                        return Utils.WrapError("This package is no longer available. Please signup for another package");
+                    }
+
+                    //get the cart for the users package, this cart contains all optional features selected by the user
+                    var optionalFeatures = (from c in entity.CompanyCarts
+                                            join f in entity.Features
+                                            on c.FeatureID equals f.ID
+                                            join pf in entity.PackageFeatures
+                                            on f.ID equals pf.FeatureID
+                                            where c.CompanyPackageID == CompanyPackageID
+                                            select new
+                                            {
+                                                f.FriendlyName,
+                                                f.Name,
+                                                c.ID,
+                                                c.FeatureID,
+                                                pf.OptionalFeature,
+                                                pf.OptionalPrice
+                                            }).ToList();
+
+                    //get the mandatory features for the package
+                    var mandatoryFeatures = (from cp in entity.CompanyPackages
+                                             join p in entity.Packages
+                                             on cp.PackageID equals p.ID
+                                             join pf in entity.PackageFeatures
+                                             on p.ID equals pf.PackageID
+                                             join f in entity.Features
+                                             on pf.FeatureID equals f.ID
+                                             where cp.ID == CompanyPackageID && pf.OptionalFeature == false
+                                             select new
+                                             {
+                                                 f.FriendlyName,
+                                                 f.Name,
+                                                 f.ID,
+                                                 pf.OptionalFeature,
+                                                 pf.OptionalPrice
+                                             }).ToList();
+
+
+                    //set defaults for the features
+                    bool Summing = false;
+                    bool Piping = false;
+                    bool GeoServices = false;
+                    bool Signatures = false;
+                    bool PhotoCamera = false;
+                    bool WhiteLabelling = false;
+                    bool PDF = false;
+                    bool CSV = false;
+                    bool Excel = false;
+                    bool BasicReporting = false;
+                    bool AdvancedReporting = false;
+                    bool UniqueID = false;
+
+                    //cycle through all the optional features selected by the user
+                    //if there are extra features selected
+                    if (optionalFeatures != null && optionalFeatures.Count() > 0)
+                    {
+                        foreach (var feature in optionalFeatures)
+                        {
+                            //switch through the names of the features, if the optional feature matches one of these names,
+                            //set the feature to true
+                            switch (feature.Name)
+                            {
+
+                                case "Summing":
+                                    Summing = true;
+                                    break;
+
+                                case "Piping":
+                                    Piping = true;
+                                    break;
+
+                                case "GeoServices":
+                                    GeoServices = true;
+                                    break;
+
+                                case "Excel":
+                                    Excel = true;
+                                    break;
+
+                                case "AdvancedReporting":
+                                    AdvancedReporting = true;
+                                    break;
+
+                                case "PDF":
+                                    PDF = true;
+                                    break;
+
+                                case "CSV":
+                                    CSV = true;
+                                    break;
+
+                                case "WhiteLabelling":
+                                    WhiteLabelling = true;
+                                    break;
+
+                                case "PhotoCamera":
+                                    PhotoCamera = true;
+                                    break;
+
+                                case "BasicReporting":
+                                    BasicReporting = true;
+                                    break;
+
+                                case "Signatures":
+                                    Signatures = true;
+                                    break;
+
+                                case "UniqueID":
+                                    UniqueID = true;
+                                    break;
+                            }
+                        }
+                    }
+
+                    Helper.LogMessage("CompletePurchaseEFT: After Optional Features " + mandatoryFeatures.Count());
+                    //cycle through all the mandatory features for the package
+                    if (mandatoryFeatures != null && mandatoryFeatures.Count() > 0)
+                    {
+                        Helper.LogMessage("CompletePurchaseEFT: There a are mandatory features to add here");
+                        foreach (var feature in mandatoryFeatures)
+                        {
+                            //switch through the names of the features, if the optional feature matches one of these names,
+                            //set the feature to true
+                            switch (feature.Name)
+                            {
+
+                                case "Summing":
+                                    Summing = true;
+                                    break;
+
+                                case "Piping":
+                                    Piping = true;
+                                    break;
+
+                                case "GeoServices":
+                                    GeoServices = true;
+                                    break;
+
+                                case "Excel":
+                                    Excel = true;
+                                    break;
+
+                                case "AdvancedReporting":
+                                    AdvancedReporting = true;
+                                    break;
+
+                                case "PDF":
+                                    PDF = true;
+                                    break;
+
+                                case "CSV":
+                                    CSV = true;
+                                    break;
+
+                                case "WhiteLabelling":
+                                    WhiteLabelling = true;
+                                    break;
+
+                                case "PhotoCamera":
+                                    PhotoCamera = true;
+                                    break;
+
+                                case "BasicReporting":
+                                    BasicReporting = true;
+                                    break;
+
+                                case "Signatures":
+                                    Signatures = true;
+                                    break;
+
+                                case "UniqueID":
+                                    UniqueID = true;
+                                    break;
+                            }
+
+                            Helper.LogMessage("CompletePurchaseEFT: Adding Mandatory Feature: " + Summing + ":" + Piping + ":" + GeoServices + ":" + Excel + ":" + AdvancedReporting + ":" + PDF + ":" +
+                               CSV + ":" + WhiteLabelling + ":" + PhotoCamera + ":" + BasicReporting + ":" + Signatures + ":" + UniqueID);
+                        }
+                    }
+
+
+                    //update the package that the company is on
+                    curCompanyPackage.IsCompleted = true;
+                    curCompanyPackage.Price = Price;
+
+                    curCompanyPackage.DateStart = DateStart;
+
+                    curCompanyPackage.DateActivated = null;
+                    curCompanyPackage.ActivatedBy = null;
+                    curCompanyPackage.PaymentType = "EFT";
+                    curCompanyPackage.NumberOfSurveys = curPackage.NumberOfSurveys;
+                    curCompanyPackage.NumberOfQuestions = curPackage.NumberOfQuestions;
+                    curCompanyPackage.NumberOfUsers = curPackage.NumberOfUsers;
+                    curCompanyPackage.NumberOfResponses = curPackage.NumberOfResponses;
+                    curCompanyPackage.PackageName = curPackage.PackageName;
+                    curCompanyPackage.Description = curPackage.Description;
+                    curCompanyPackage.NumberOfProjects = curPackage.NumberOfProjects;
+                    curCompanyPackage.Summing = Summing;
+                    curCompanyPackage.Piping = Piping;
+                    curCompanyPackage.GeoServices = GeoServices;
+                    curCompanyPackage.Signatures = Signatures;
+                    curCompanyPackage.PhotoCamera = PhotoCamera;
+                    curCompanyPackage.WhiteLabelling = WhiteLabelling;
+                    curCompanyPackage.PDF = PDF;
+                    curCompanyPackage.CSV = CSV;
+                    curCompanyPackage.Excel = Excel;
+                    curCompanyPackage.BasicReporting = BasicReporting;
+                    curCompanyPackage.AdvancedReporting = AdvancedReporting;
+                    curCompanyPackage.UniqueID = UniqueID;
+
+
+                    //if the package is free
+                    if (Price == 0)
+                    {
+                        curCompanyPackage.PaymentStatus = "Payment Successful";
+                        curCompanyPackage.PaymentErrorStatus = "Payment Successful";
+                        curCompanyPackage.PaymentPending = false;
+                        curCompanyPackage.IsActive = true;
+
+                        //calculate the expiry date of the package
+                        DateTime ExpiryDate = DateStart.AddMonths(curCompanyPackage.NumberMonthsSignedUpFor.Value);
+                        curCompanyPackage.DateExpires = ExpiryDate;
+
+                        DateTime CurDate = DateTime.Now;
+
+                        //save the payment
+                        SavePayment(LoggedInUserID + "", curCompanyPackage.ID + "", CurDate + "", "0", "EFT");
+                    }
+                    else
+                    {
+
+                        curCompanyPackage.IsActive = false; //the admin should activate the package
+                    }
+
+                    entity.CompanyPackages.Add(curCompanyPackage);
+                    entity.Entry(curCompanyPackage).State = EntityState.Modified;
+
+                    //get the cart for the users package, this cart contains all optional features selected by the user
+                    var curCart = (from c in entity.CompanyCarts
+                                   where c.CompanyPackageID == CompanyPackageID
+                                   select c).ToList();
+
+                    //remove the details from the cart,if there are any
+                    if (curCart != null && curCart.Count > 0)
+                    {
+                        entity.CompanyCarts.RemoveRange(curCart);
+                    }
+
+                    entity.SaveChanges();
+
+
+                    //SendEmail(EmailPurpose.GenerateInvoice, curUser.Email, curCompanyPackage.CompanyID + "", "", "", "", "", "", "", "");
+
+
+                    dynamic returnItem = new JObject();
+                    returnItem.Status = "Success";
+                    returnItem.InvoiceID = InvoiceID;
+                    return returnItem.ToString();
+
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                string errors = Helper.GetCleanEntityValidationErrors(ex);
+                Helper.LogError(errors, ex.ToString());
+                return Utils.WrapError(errors);
+            }
+            catch (Exception ee)
+            {
+                Helper.LogError(ee.Message, ee.StackTrace);
+                return Utils.WrapError(ee.Message);
+            }
+        }

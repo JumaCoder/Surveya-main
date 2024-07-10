@@ -1,0 +1,1344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Surveya_DevModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityType Name="ActivityStream">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyID" Type="uniqueidentifier" />
+          <Property Name="AffectedUserID" Type="uniqueidentifier" />
+          <Property Name="AffectedUserFullName" Type="varchar" MaxLength="256" />
+          <Property Name="PerformedByUserID" Type="uniqueidentifier" />
+          <Property Name="PerformedByUserFullName" Type="varchar" MaxLength="256" />
+          <Property Name="link" Type="varchar(max)" />
+          <Property Name="ProjectID" Type="uniqueidentifier" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="256" />
+          <Property Name="SurveyID" Type="uniqueidentifier" />
+          <Property Name="SurveyName" Type="varchar" MaxLength="256" />
+          <Property Name="ActivityMessage" Type="varchar(max)" />
+          <Property Name="ActivityDate" Type="datetime" />
+          <Property Name="ActivityType" Type="varchar" MaxLength="256" />
+          <Property Name="DocumentID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="aspnet_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordFormat" Type="int" Nullable="false" />
+          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="MobilePIN" Type="nvarchar" MaxLength="16" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="LoweredEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
+          <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="ntext" />
+          <Property Name="Firstnames" Type="varchar" MaxLength="256" />
+          <Property Name="Lastname" Type="varchar" MaxLength="256" />
+          <Property Name="ContactNumber" Type="varchar" MaxLength="256" />
+          <Property Name="Country" Type="varchar(max)" />
+          <Property Name="PhysicalAddress" Type="varchar(max)" />
+          <Property Name="Photo" Type="varbinary(max)" />
+          <Property Name="PassportNumber" Type="varchar" MaxLength="256" />
+          <Property Name="PassportExpiryDate" Type="datetime" />
+          <Property Name="MedicalAidName" Type="varchar" MaxLength="256" />
+          <Property Name="MedicalAidNumber" Type="varchar" MaxLength="256" />
+          <Property Name="MedicalAidContactNumber" Type="varchar" MaxLength="256" />
+          <Property Name="BloodType" Type="varchar" MaxLength="128" />
+          <Property Name="HasAllergy" Type="bit" />
+          <Property Name="AllergyDescription" Type="varchar(max)" />
+          <Property Name="SafetyBootsSize" Type="varchar" MaxLength="128" />
+          <Property Name="HighVisibilityVestSize" Type="varchar" MaxLength="128" />
+          <Property Name="AvailableFreeCompanies" Type="bit" />
+          <Property Name="EmergencyContact1Fullname" Type="varchar" MaxLength="256" />
+          <Property Name="EmergencyContact1ContactNumber" Type="varchar" MaxLength="256" />
+          <Property Name="EmergencyContact1Relationship" Type="varchar" MaxLength="256" />
+          <Property Name="EmergencyContact2Fullname" Type="varchar" MaxLength="256" />
+          <Property Name="EmergencyContact2ContactNumber" Type="varchar" MaxLength="256" />
+          <Property Name="EmergencyContact2Relationship" Type="varchar" MaxLength="256" />
+          <Property Name="DateActivated" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="postalCode" Type="varchar" MaxLength="256" />
+          <Property Name="city" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="RegistrationNumber" Type="varchar" MaxLength="256" />
+          <Property Name="VatNumber" Type="varchar" MaxLength="128" />
+          <Property Name="Logo" Type="varbinary(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="PhysicalAddress" Type="varchar(max)" />
+          <Property Name="billEmail" Type="varchar" MaxLength="256" />
+          <Property Name="alternateBillEmail" Type="varchar" MaxLength="256" />
+          <Property Name="postalCode" Type="varchar" MaxLength="256" />
+          <Property Name="city" Type="varchar" MaxLength="256" />
+          <Property Name="country" Type="varchar" MaxLength="256" />
+          <Property Name="LogoSM" Type="varbinary(max)" />
+          <Property Name="SelectedSkin" Type="varchar(max)" />
+          <Property Name="MobileAppThemeName" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="CompanyUsers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyID" Type="uniqueidentifier" />
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Documents">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="256" />
+          <Property Name="Link" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="TypeNumber" Type="bigint" Nullable="false" />
+          <Property Name="TypeDescription" Type="varchar(max)" />
+          <Property Name="ExpiryDate" Type="datetime" />
+          <Property Name="IsProjectSpecific" Type="bit" />
+          <Property Name="ProjectID" Type="uniqueidentifier" />
+          <Property Name="UserID" Type="uniqueidentifier" />
+          <Property Name="FileExtension" Type="varchar" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+          <Property Name="CompanyID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="RegistrationNumber" Type="varchar" MaxLength="256" />
+          <Property Name="VatNumber" Type="varchar" MaxLength="128" />
+          <Property Name="PhysicalAddress" Type="varchar(max)" />
+          <Property Name="PackageID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyPackageID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PackageName" Type="varchar" MaxLength="256" />
+          <Property Name="PurchaseOrderNumber" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="InvoiceLineItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="InvoiceID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LineItem" Type="varchar(max)" Nullable="false" />
+          <Property Name="Quantity" Type="bigint" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="ProjectDescription" Type="varchar(max)" />
+          <Property Name="ProjectCountry" Type="varchar" MaxLength="256" />
+          <Property Name="NumberOfMembers" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="ActualStartDate" Type="datetime" />
+          <Property Name="ActualEndDate" Type="datetime" />
+          <Property Name="StartedByUserID" Type="uniqueidentifier" />
+          <Property Name="EndedByUserID" Type="uniqueidentifier" />
+          <Property Name="IsPassportNumberRequired" Type="bit" Nullable="false" />
+          <Property Name="IsPassportExpiryDateRequired" Type="bit" />
+          <Property Name="IsMedicalAidNameRequired" Type="bit" />
+          <Property Name="IsMedicalAidNumberRequired" Type="bit" />
+          <Property Name="IsMedicalAidContactNumberRequired" Type="bit" />
+          <Property Name="IsBloodTypeRequired" Type="bit" />
+          <Property Name="IsAllergiesRequired" Type="bit" />
+          <Property Name="IsAllergiesDescriptionRequired" Type="bit" />
+          <Property Name="IsVaccinationsRequired" Type="bit" />
+          <Property Name="IsSafetyBootsRequired" Type="bit" />
+          <Property Name="IsVestRequired" Type="bit" />
+          <Property Name="IsPassportDocRequired" Type="bit" />
+          <Property Name="IsETicketDocRequired" Type="bit" />
+          <Property Name="IsVisaDocRequired" Type="bit" />
+          <Property Name="IsAccommodationDocRequired" Type="bit" />
+          <Property Name="IsVaccinationDocRequired" Type="bit" />
+          <Property Name="IsDriversLicenseDocRequired" Type="bit" />
+          <Property Name="IsCustomsClearanceDocRequired" Type="bit" />
+          <Property Name="ProjectCompany" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="OtherInfoRequired" Type="varchar(max)" />
+          <Property Name="IsEmergencyContactOneRequired" Type="bit" />
+          <Property Name="IsEmergencyContactTwoRequired" Type="bit" />
+        </EntityType>
+        <EntityType Name="ProjectTeam">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompletedRegistration" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="HasUploadedPassport" Type="bit" />
+          <Property Name="HasUploadedVisa" Type="bit" />
+          <Property Name="HasUploadedVaccinationCertificates" Type="bit" />
+          <Property Name="HasUploadedCustomsClearanceCertificates" Type="bit" />
+          <Property Name="HasUploadedETickets" Type="bit" />
+          <Property Name="HasUploadedAccommodationConfirmation" Type="bit" />
+          <Property Name="HasUploadedDriversLicense" Type="bit" />
+        </EntityType>
+        <EntityType Name="Survey">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SurveyTitle" Type="varchar(max)" />
+          <Property Name="ProjectID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="StartedByUserID" Type="uniqueidentifier" />
+          <Property Name="EndedByUserID" Type="uniqueidentifier" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="Purpose" Type="varchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsEmailed" Type="bit" />
+          <Property Name="EmailedUserIDForResponses" Type="uniqueidentifier" />
+          <Property Name="EmailedSurveyLink" Type="varchar" MaxLength="256" />
+          <Property Name="EmailedUniqueID" Type="uniqueidentifier" />
+          <Property Name="SurveyConclusion" Type="varchar(max)" />
+          <Property Name="IsPageView" Type="bit" />
+          <Property Name="SurveyTheme" Type="varchar(max)" />
+        </EntityType>
+        <Function Name="GetAuditedResponses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SurveyID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetAuditedResponsesForMatrix" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SurveyID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetAuditedResponsesForMatrix_CRM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SurveyID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetDynamicReportDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ReportID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InvoiceID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetInvoiceLineItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InvoiceID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetReportFilters" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ReportID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ResponseID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetResponseSyncNumbers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetSurveyaDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetSurveyDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="surveyID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetSurveyQuestions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="surveyID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetSurveyQuestionStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SurveyID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="ResponseSummaryAllQuestions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="surveyID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="ResponseSummaryPerQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="surveyID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="questionID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="UpdateDynamicReportFilter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FilterID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="FilterName" Type="nvarchar" Mode="In" />
+          <Parameter Name="q1Id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="q1Condition" Type="nvarchar" Mode="In" />
+          <Parameter Name="q1CompareValue" Type="nvarchar" Mode="In" />
+          <Parameter Name="q2Id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="q2Condition" Type="nvarchar" Mode="In" />
+          <Parameter Name="q2CompareValue" Type="nvarchar" Mode="In" />
+          <Parameter Name="q3Id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="q3Condition" Type="nvarchar" Mode="In" />
+          <Parameter Name="q3CompareValue" Type="nvarchar" Mode="In" />
+          <Parameter Name="q4Id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="q4Condition" Type="nvarchar" Mode="In" />
+          <Parameter Name="q4CompareValue" Type="nvarchar" Mode="In" />
+          <Parameter Name="q5Id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="q5Condition" Type="nvarchar" Mode="In" />
+          <Parameter Name="q5CompareValue" Type="nvarchar" Mode="In" />
+          <Parameter Name="q6Id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="q6Condition" Type="nvarchar" Mode="In" />
+          <Parameter Name="q6CompareValue" Type="nvarchar" Mode="In" />
+          <Parameter Name="sqlString" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="Surveya_DevModelStoreContainer">
+          <EntitySet Name="ActivityStream" EntityType="Self.ActivityStream" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="aspnet_Membership" EntityType="Self.aspnet_Membership" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="CompanyUsers" EntityType="Self.CompanyUsers" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="InvoiceLineItem" EntityType="Self.InvoiceLineItem" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ProjectTeam" EntityType="Self.ProjectTeam" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Survey" EntityType="Self.Survey" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Surveya_DevModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CompanyID" Type="Guid" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegistrationNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="VatNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="PhysicalAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PackageID" Type="Guid" Nullable="false" />
+          <Property Name="CompanyPackageID" Type="Guid" Nullable="false" />
+          <Property Name="PackageName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="PurchaseOrderNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="InvoiceLineItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="InvoiceID" Type="Guid" Nullable="false" />
+          <Property Name="LineItem" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Quantity" Type="Int64" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ReportEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+          <EntitySet Name="InvoiceLineItems" EntityType="Self.InvoiceLineItem" />
+          <EntitySet Name="aspnet_Membership" EntityType="Surveya_DevModel.aspnet_Membership" />
+          <EntitySet Name="Companies" EntityType="Surveya_DevModel.Company" />
+          <EntitySet Name="Projects" EntityType="Surveya_DevModel.Project" />
+          <EntitySet Name="ProjectTeams" EntityType="Surveya_DevModel.ProjectTeam" />
+          <EntitySet Name="Surveys" EntityType="Surveya_DevModel.Survey" />
+          <EntitySet Name="CompanyUsers" EntityType="Surveya_DevModel.CompanyUser" />
+          <EntitySet Name="Documents" EntityType="Surveya_DevModel.Document" />
+          <EntitySet Name="ActivityStreams" EntityType="Surveya_DevModel.ActivityStream" />
+          <FunctionImport Name="GetDynamicReportDetails" ReturnType="Collection(Surveya_DevModel.GetDynamicReportDetails_Result)">
+          <Parameter Name="ReportID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetInvoice" ReturnType="Collection(Surveya_DevModel.GetInvoice_Result)">
+          <Parameter Name="InvoiceID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetInvoiceLineItem" ReturnType="Collection(Surveya_DevModel.GetInvoiceLineItem_Result)">
+          <Parameter Name="InvoiceID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetReportFilters" ReturnType="Collection(Surveya_DevModel.GetReportFilters_Result)">
+          <Parameter Name="ReportID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetResponseSyncNumbers" ReturnType="Collection(Surveya_DevModel.GetResponseSyncNumbers_Result)">
+          <Parameter Name="UserID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetSurveyDetails" ReturnType="Collection(Surveya_DevModel.GetSurveyDetails_Result)">
+          <Parameter Name="surveyID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="ResponseSummaryAllQuestions" ReturnType="Collection(Surveya_DevModel.ResponseSummaryAllQuestions_Result)">
+          <Parameter Name="surveyID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="ResponseSummaryPerQuestion">
+            <Parameter Name="surveyID" Mode="In" Type="Guid" />
+            <Parameter Name="questionID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateDynamicReportFilter" ReturnType="Collection(Guid)">
+            <Parameter Name="FilterID" Mode="In" Type="Guid" />
+            <Parameter Name="FilterName" Mode="In" Type="String" />
+            <Parameter Name="q1Id" Mode="In" Type="Guid" />
+            <Parameter Name="q1Condition" Mode="In" Type="String" />
+            <Parameter Name="q1CompareValue" Mode="In" Type="String" />
+            <Parameter Name="q2Id" Mode="In" Type="Guid" />
+            <Parameter Name="q2Condition" Mode="In" Type="String" />
+            <Parameter Name="q2CompareValue" Mode="In" Type="String" />
+            <Parameter Name="q3Id" Mode="In" Type="Guid" />
+            <Parameter Name="q3Condition" Mode="In" Type="String" />
+            <Parameter Name="q3CompareValue" Mode="In" Type="String" />
+            <Parameter Name="q4Id" Mode="In" Type="Guid" />
+            <Parameter Name="q4Condition" Mode="In" Type="String" />
+            <Parameter Name="q4CompareValue" Mode="In" Type="String" />
+            <Parameter Name="q5Id" Mode="In" Type="Guid" />
+            <Parameter Name="q5Condition" Mode="In" Type="String" />
+            <Parameter Name="q5CompareValue" Mode="In" Type="String" />
+            <Parameter Name="q6Id" Mode="In" Type="Guid" />
+            <Parameter Name="q6Condition" Mode="In" Type="String" />
+            <Parameter Name="q6CompareValue" Mode="In" Type="String" />
+            <Parameter Name="sqlString" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetSurveyQuestions" ReturnType="Collection(Surveya_DevModel.GetSurveyQuestions_Result)">
+          <Parameter Name="surveyID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetResponse" ReturnType="Collection(Surveya_DevModel.GetResponse_Result)">
+          <Parameter Name="ResponseID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetSurveyQuestionStats" ReturnType="Collection(Surveya_DevModel.GetSurveyQuestionStats_Result)">
+          <Parameter Name="SurveyID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetAuditedResponses" ReturnType="Collection(Surveya_DevModel.GetAuditedResponses_Result)">
+          <Parameter Name="SurveyID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetSurveyaDetails" ReturnType="Collection(Surveya_DevModel.GetSurveyaDetails_Result)" />
+          <FunctionImport Name="GetAuditedResponsesForMatrix" ReturnType="Collection(Surveya_DevModel.GetAuditedResponsesForMatrix_Result)">
+          <Parameter Name="SurveyID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetAuditedResponsesForMatrix_CRM" ReturnType="Collection(Surveya_DevModel.GetAuditedResponsesForMatrix_CRM_Result)">
+            <Parameter Name="SurveyID" Mode="In" Type="Guid" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="aspnet_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordFormat" Type="Int32" Nullable="false" />
+          <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePIN" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LoweredEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordQuestion" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordAnswer" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="IsLockedOut" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastPasswordChangedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLockoutDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FailedPasswordAttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Firstnames" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Lastname" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PhysicalAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="PassportNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="PassportExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="MedicalAidName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="MedicalAidNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="MedicalAidContactNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="BloodType" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="HasAllergy" Type="Boolean" />
+          <Property Name="AllergyDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SafetyBootsSize" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="HighVisibilityVestSize" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="AvailableFreeCompanies" Type="Boolean" />
+          <Property Name="EmergencyContact1Fullname" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyContact1ContactNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyContact1Relationship" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyContact2Fullname" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyContact2ContactNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyContact2Relationship" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="DateActivated" Type="DateTime" Precision="3" />
+          <Property Name="postalCode" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="RegistrationNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="VatNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="PhysicalAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="billEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="alternateBillEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="postalCode" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="LogoSM" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="SelectedSkin" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MobileAppThemeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectCountry" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="NumberOfMembers" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Guid" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualEndDate" Type="DateTime" Precision="3" />
+          <Property Name="StartedByUserID" Type="Guid" />
+          <Property Name="EndedByUserID" Type="Guid" />
+          <Property Name="IsPassportNumberRequired" Type="Boolean" Nullable="false" />
+          <Property Name="IsPassportExpiryDateRequired" Type="Boolean" />
+          <Property Name="IsMedicalAidNameRequired" Type="Boolean" />
+          <Property Name="IsMedicalAidNumberRequired" Type="Boolean" />
+          <Property Name="IsMedicalAidContactNumberRequired" Type="Boolean" />
+          <Property Name="IsBloodTypeRequired" Type="Boolean" />
+          <Property Name="IsAllergiesRequired" Type="Boolean" />
+          <Property Name="IsAllergiesDescriptionRequired" Type="Boolean" />
+          <Property Name="IsVaccinationsRequired" Type="Boolean" />
+          <Property Name="IsSafetyBootsRequired" Type="Boolean" />
+          <Property Name="IsVestRequired" Type="Boolean" />
+          <Property Name="IsPassportDocRequired" Type="Boolean" />
+          <Property Name="IsETicketDocRequired" Type="Boolean" />
+          <Property Name="IsVisaDocRequired" Type="Boolean" />
+          <Property Name="IsAccommodationDocRequired" Type="Boolean" />
+          <Property Name="IsVaccinationDocRequired" Type="Boolean" />
+          <Property Name="IsDriversLicenseDocRequired" Type="Boolean" />
+          <Property Name="IsCustomsClearanceDocRequired" Type="Boolean" />
+          <Property Name="ProjectCompany" Type="Guid" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" Nullable="false" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="OtherInfoRequired" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsEmergencyContactOneRequired" Type="Boolean" />
+          <Property Name="IsEmergencyContactTwoRequired" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ProjectTeam">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ProjectID" Type="Guid" Nullable="false" />
+          <Property Name="UserID" Type="Guid" Nullable="false" />
+          <Property Name="RoleID" Type="Guid" Nullable="false" />
+          <Property Name="CompletedRegistration" Type="Boolean" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="HasUploadedPassport" Type="Boolean" />
+          <Property Name="HasUploadedVisa" Type="Boolean" />
+          <Property Name="HasUploadedVaccinationCertificates" Type="Boolean" />
+          <Property Name="HasUploadedCustomsClearanceCertificates" Type="Boolean" />
+          <Property Name="HasUploadedETickets" Type="Boolean" />
+          <Property Name="HasUploadedAccommodationConfirmation" Type="Boolean" />
+          <Property Name="HasUploadedDriversLicense" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Survey">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="SurveyTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectID" Type="Guid" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="StartedByUserID" Type="Guid" />
+          <Property Name="EndedByUserID" Type="Guid" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="Purpose" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsEmailed" Type="Boolean" />
+          <Property Name="EmailedUserIDForResponses" Type="Guid" />
+          <Property Name="EmailedSurveyLink" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EmailedUniqueID" Type="Guid" />
+          <Property Name="SurveyConclusion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsPageView" Type="Boolean" />
+          <Property Name="SurveyTheme" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CompanyUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CompanyID" Type="Guid" />
+          <Property Name="UserID" Type="Guid" Nullable="false" />
+          <Property Name="RoleID" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="TypeNumber" Type="Int64" Nullable="false" />
+          <Property Name="TypeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="IsProjectSpecific" Type="Boolean" />
+          <Property Name="ProjectID" Type="Guid" />
+          <Property Name="UserID" Type="Guid" />
+          <Property Name="FileExtension" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ActivityStream">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CompanyID" Type="Guid" />
+          <Property Name="AffectedUserID" Type="Guid" />
+          <Property Name="AffectedUserFullName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="PerformedByUserID" Type="Guid" />
+          <Property Name="PerformedByUserFullName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectID" Type="Guid" />
+          <Property Name="ProjectName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="SurveyID" Type="Guid" />
+          <Property Name="SurveyName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="ActivityMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ActivityDate" Type="DateTime" Precision="3" />
+          <Property Name="ActivityType" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentID" Type="Guid" />
+        </EntityType>
+        <ComplexType Name="GetDynamicReportDetails_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="Guid" Name="CompanyID" Nullable="true" />
+          <Property Type="Guid" Name="SurveyID" Nullable="true" />
+          <Property Type="String" Name="ReportName" Nullable="true" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="true" Precision="23" />
+          <Property Type="Guid" Name="UserID" Nullable="true" />
+          <Property Type="String" Name="UserFullName" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetInvoice_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="Int64" Name="InvoiceNumber" Nullable="false" />
+          <Property Type="DateTime" Name="InvoiceDate" Nullable="false" Precision="23" />
+          <Property Type="Guid" Name="CompanyID" Nullable="false" />
+          <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="VatNumber" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="PhysicalAddress" Nullable="true" />
+          <Property Type="Guid" Name="PackageID" Nullable="false" />
+          <Property Type="Guid" Name="CompanyPackageID" Nullable="false" />
+          <Property Type="String" Name="PurchaseOrderNumber" Nullable="true" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="GetInvoiceLineItem_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="Guid" Name="InvoiceID" Nullable="false" />
+          <Property Type="String" Name="LineItem" Nullable="false" />
+          <Property Type="Int64" Name="Quantity" Nullable="false" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Total" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="VATAmount" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="GetReportFilters_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="FilterName" Nullable="true" />
+          <Property Type="Int64" Name="FilterCount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetResponseSyncNumbers_Result">
+          <Property Type="Guid" Name="SurveyID" Nullable="false" />
+          <Property Type="Int64" Name="NumberSynced" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetSurveyDetails_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="SurveyTitle" Nullable="false" MaxLength="256" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="23" />
+          <Property Type="Guid" Name="CreatedBy" Nullable="false" />
+          <Property Type="String" Name="Purpose" Nullable="true" />
+          <Property Type="Guid" Name="UpdatedBy" Nullable="true" />
+          <Property Type="DateTime" Name="DateUpdated" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="StartDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndDate" Nullable="true" Precision="23" />
+          <Property Type="Guid" Name="StartedByUserID" Nullable="true" />
+          <Property Type="Guid" Name="EndedByUserID" Nullable="true" />
+          <Property Type="Guid" Name="ProjectID" Nullable="false" />
+          <Property Type="String" Name="ProjectName" Nullable="false" MaxLength="256" />
+          <Property Type="Guid" Name="CompanyID" Nullable="false" />
+          <Property Type="Int32" Name="NumberOfSurveyUsers" Nullable="true" />
+          <Property Type="Int32" Name="NumberOfQuestions" Nullable="true" />
+          <Property Type="Int32" Name="NumberOfResponses" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ResponseSummaryAllQuestions_Result">
+          <Property Type="Guid" Name="QuestionID" Nullable="false" />
+          <Property Type="String" Name="Question" Nullable="false" />
+          <Property Type="String" Name="Response" Nullable="false" />
+          <Property Type="Int32" Name="ResponsePerValueCount" Nullable="true" />
+          <Property Type="Int32" Name="TotalResponseCount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetSurveyQuestions_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="QuestionText" Nullable="false" />
+          <Property Type="Guid" Name="QuestionType" Nullable="true" />
+          <Property Type="Guid" Name="GroupID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetResponse_Result">
+          <Property Type="Guid" Name="ResponseID" Nullable="false" />
+          <Property Type="String" Name="PageName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="GroupType" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="RowName" Nullable="false" />
+          <Property Type="String" Name="QuestionText" Nullable="true" />
+          <Property Type="String" Name="ResponseValue" Nullable="true" />
+          <Property Type="DateTime" Name="ResponseDateCreated" Nullable="false" Precision="23" />
+          <Property Type="Int64" Name="PagePosition" Nullable="true" />
+          <Property Type="Int64" Name="GroupPosition" Nullable="true" />
+          <Property Type="Int64" Name="QuestionPosition" Nullable="true" />
+          <Property Type="Int64" Name="RowPosition" Nullable="true" />
+          <Property Type="String" Name="ControlType" Nullable="true" MaxLength="256" />
+          <Property Type="Guid" Name="QuestionRowID" Nullable="true" />
+          <Property Type="Guid" Name="SurveyID" Nullable="false" />
+          <Property Type="String" Name="SurveyTitle" Nullable="true" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="23" />
+          <Property Type="Guid" Name="CreatedBy" Nullable="false" />
+          <Property Type="String" Name="Purpose" Nullable="true" />
+          <Property Type="DateTime" Name="StartDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreatedByName" Nullable="true" MaxLength="773" />
+          <Property Type="String" Name="ResponseSurveyTitle" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetSurveyQuestionStats_Result">
+          <Property Type="String" Name="PageName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="GroupType" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="RowName" Nullable="false" />
+          <Property Type="String" Name="ResponseValueQuestionText" Nullable="false" />
+          <Property Type="Guid" Name="ResponseValueQuestionID" Nullable="false" />
+          <Property Type="String" Name="ResponseValue" Nullable="false" />
+          <Property Type="Int64" Name="PagePosition" Nullable="true" />
+          <Property Type="Int64" Name="GroupPosition" Nullable="true" />
+          <Property Type="Int64" Name="QuestionPosition" Nullable="true" />
+          <Property Type="Int64" Name="RowPosition" Nullable="true" />
+          <Property Type="Guid" Name="QuestionRowID" Nullable="true" />
+          <Property Type="Int32" Name="NumberAnswers" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAuditedResponses_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="Guid" Name="ResponseID" Nullable="false" />
+          <Property Type="String" Name="PageName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="GroupType" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="RowName" Nullable="false" />
+          <Property Type="String" Name="ResponseValueQuestionText" Nullable="false" />
+          <Property Type="Guid" Name="ResponseValueQuestionID" Nullable="false" />
+          <Property Type="String" Name="ResponseSurveyTitle" Nullable="true" />
+          <Property Type="String" Name="ResponseValue" Nullable="true" />
+          <Property Type="DateTime" Name="ResponseDateCreated" Nullable="false" Precision="23" />
+          <Property Type="Int64" Name="PagePosition" Nullable="true" />
+          <Property Type="Int64" Name="GroupPosition" Nullable="true" />
+          <Property Type="Int64" Name="QuestionPosition" Nullable="true" />
+          <Property Type="Int64" Name="RowPosition" Nullable="true" />
+          <Property Type="String" Name="ControlType" Nullable="true" MaxLength="256" />
+          <Property Type="Guid" Name="QuestionRowID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetSurveyaDetails_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="RegistrationNumber" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Street" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Suburb" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="City" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Country" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="PostalCode" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="VatNumber" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="InvoiceNote" Nullable="true" />
+          <Property Type="String" Name="InvoiceTerms" Nullable="true" />
+          <Property Type="String" Name="BankAccountName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="BankName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="BankAccountNumber" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="BankBranchName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="BankBranchCode" Nullable="true" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="GetAuditedResponsesForMatrix_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="Guid" Name="ResponseID" Nullable="false" />
+          <Property Type="String" Name="PageName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="GroupType" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="RowName" Nullable="false" />
+          <Property Type="String" Name="ResponseValueQuestionText" Nullable="false" />
+          <Property Type="Guid" Name="ResponseValueQuestionID" Nullable="false" />
+          <Property Type="String" Name="ResponseSurveyTitle" Nullable="true" />
+          <Property Type="String" Name="ResponseValue" Nullable="true" />
+          <Property Type="DateTime" Name="ResponseDateCreated" Nullable="false" Precision="23" />
+          <Property Type="Int64" Name="PagePosition" Nullable="true" />
+          <Property Type="Int64" Name="GroupPosition" Nullable="true" />
+          <Property Type="Int64" Name="QuestionPosition" Nullable="true" />
+          <Property Type="Int64" Name="RowPosition" Nullable="true" />
+          <Property Type="String" Name="ControlType" Nullable="true" MaxLength="256" />
+          <Property Type="Guid" Name="QuestionRowID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAuditedResponsesForMatrix_CRM_Result">
+          <Property Type="Guid" Name="ID" Nullable="true" />
+          <Property Type="Guid" Name="ResponseID" Nullable="true" />
+          <Property Type="String" Name="PageName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="GroupType" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="RowName" Nullable="false" />
+          <Property Type="String" Name="ResponseValueQuestionText" Nullable="false" />
+          <Property Type="Guid" Name="ResponseValueQuestionID" Nullable="true" />
+          <Property Type="String" Name="ResponseSurveyTitle" Nullable="true" />
+          <Property Type="String" Name="ResponseValue" Nullable="true" />
+          <Property Type="DateTime" Name="ResponseDateCreated" Nullable="false" Precision="23" />
+          <Property Type="Int64" Name="PagePosition" Nullable="true" />
+          <Property Type="Int64" Name="GroupPosition" Nullable="true" />
+          <Property Type="Int64" Name="QuestionPosition" Nullable="true" />
+          <Property Type="Int64" Name="RowPosition" Nullable="true" />
+          <Property Type="String" Name="ControlType" Nullable="true" MaxLength="256" />
+          <Property Type="Guid" Name="QuestionRowID" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+        <EntityContainerMapping StorageEntityContainer="Surveya_DevModelStoreContainer" CdmEntityContainer="ReportEntities">
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="Surveya_DevModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="PurchaseOrderNumber" ColumnName="PurchaseOrderNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="VatNumber" ColumnName="VatNumber" />
+                <ScalarProperty Name="PhysicalAddress" ColumnName="PhysicalAddress" />
+                <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+                <ScalarProperty Name="CompanyPackageID" ColumnName="CompanyPackageID" />
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceLineItems">
+            <EntityTypeMapping TypeName="Surveya_DevModel.InvoiceLineItem">
+              <MappingFragment StoreEntitySet="InvoiceLineItem">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="LineItem" ColumnName="LineItem" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Membership">
+            <EntityTypeMapping TypeName="Surveya_DevModel.aspnet_Membership">
+              <MappingFragment StoreEntitySet="aspnet_Membership">
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="postalCode" ColumnName="postalCode" />
+                <ScalarProperty Name="DateActivated" ColumnName="DateActivated" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="EmergencyContact2Relationship" ColumnName="EmergencyContact2Relationship" />
+                <ScalarProperty Name="EmergencyContact2ContactNumber" ColumnName="EmergencyContact2ContactNumber" />
+                <ScalarProperty Name="EmergencyContact2Fullname" ColumnName="EmergencyContact2Fullname" />
+                <ScalarProperty Name="EmergencyContact1Relationship" ColumnName="EmergencyContact1Relationship" />
+                <ScalarProperty Name="EmergencyContact1ContactNumber" ColumnName="EmergencyContact1ContactNumber" />
+                <ScalarProperty Name="EmergencyContact1Fullname" ColumnName="EmergencyContact1Fullname" />
+                <ScalarProperty Name="AvailableFreeCompanies" ColumnName="AvailableFreeCompanies" />
+                <ScalarProperty Name="HighVisibilityVestSize" ColumnName="HighVisibilityVestSize" />
+                <ScalarProperty Name="SafetyBootsSize" ColumnName="SafetyBootsSize" />
+                <ScalarProperty Name="AllergyDescription" ColumnName="AllergyDescription" />
+                <ScalarProperty Name="HasAllergy" ColumnName="HasAllergy" />
+                <ScalarProperty Name="BloodType" ColumnName="BloodType" />
+                <ScalarProperty Name="MedicalAidContactNumber" ColumnName="MedicalAidContactNumber" />
+                <ScalarProperty Name="MedicalAidNumber" ColumnName="MedicalAidNumber" />
+                <ScalarProperty Name="MedicalAidName" ColumnName="MedicalAidName" />
+                <ScalarProperty Name="PassportExpiryDate" ColumnName="PassportExpiryDate" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="PhysicalAddress" ColumnName="PhysicalAddress" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Firstnames" ColumnName="Firstnames" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+                <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+                <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobilePIN" ColumnName="MobilePIN" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="Surveya_DevModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="MobileAppThemeName" ColumnName="MobileAppThemeName" />
+                <ScalarProperty Name="SelectedSkin" ColumnName="SelectedSkin" />
+                <ScalarProperty Name="LogoSM" ColumnName="LogoSM" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="postalCode" ColumnName="postalCode" />
+                <ScalarProperty Name="alternateBillEmail" ColumnName="alternateBillEmail" />
+                <ScalarProperty Name="billEmail" ColumnName="billEmail" />
+                <ScalarProperty Name="PhysicalAddress" ColumnName="PhysicalAddress" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="VatNumber" ColumnName="VatNumber" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="Surveya_DevModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="IsEmergencyContactTwoRequired" ColumnName="IsEmergencyContactTwoRequired" />
+                <ScalarProperty Name="IsEmergencyContactOneRequired" ColumnName="IsEmergencyContactOneRequired" />
+                <ScalarProperty Name="OtherInfoRequired" ColumnName="OtherInfoRequired" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ProjectCompany" ColumnName="ProjectCompany" />
+                <ScalarProperty Name="IsCustomsClearanceDocRequired" ColumnName="IsCustomsClearanceDocRequired" />
+                <ScalarProperty Name="IsDriversLicenseDocRequired" ColumnName="IsDriversLicenseDocRequired" />
+                <ScalarProperty Name="IsVaccinationDocRequired" ColumnName="IsVaccinationDocRequired" />
+                <ScalarProperty Name="IsAccommodationDocRequired" ColumnName="IsAccommodationDocRequired" />
+                <ScalarProperty Name="IsVisaDocRequired" ColumnName="IsVisaDocRequired" />
+                <ScalarProperty Name="IsETicketDocRequired" ColumnName="IsETicketDocRequired" />
+                <ScalarProperty Name="IsPassportDocRequired" ColumnName="IsPassportDocRequired" />
+                <ScalarProperty Name="IsVestRequired" ColumnName="IsVestRequired" />
+                <ScalarProperty Name="IsSafetyBootsRequired" ColumnName="IsSafetyBootsRequired" />
+                <ScalarProperty Name="IsVaccinationsRequired" ColumnName="IsVaccinationsRequired" />
+                <ScalarProperty Name="IsAllergiesDescriptionRequired" ColumnName="IsAllergiesDescriptionRequired" />
+                <ScalarProperty Name="IsAllergiesRequired" ColumnName="IsAllergiesRequired" />
+                <ScalarProperty Name="IsBloodTypeRequired" ColumnName="IsBloodTypeRequired" />
+                <ScalarProperty Name="IsMedicalAidContactNumberRequired" ColumnName="IsMedicalAidContactNumberRequired" />
+                <ScalarProperty Name="IsMedicalAidNumberRequired" ColumnName="IsMedicalAidNumberRequired" />
+                <ScalarProperty Name="IsMedicalAidNameRequired" ColumnName="IsMedicalAidNameRequired" />
+                <ScalarProperty Name="IsPassportExpiryDateRequired" ColumnName="IsPassportExpiryDateRequired" />
+                <ScalarProperty Name="IsPassportNumberRequired" ColumnName="IsPassportNumberRequired" />
+                <ScalarProperty Name="EndedByUserID" ColumnName="EndedByUserID" />
+                <ScalarProperty Name="StartedByUserID" ColumnName="StartedByUserID" />
+                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
+                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="NumberOfMembers" ColumnName="NumberOfMembers" />
+                <ScalarProperty Name="ProjectCountry" ColumnName="ProjectCountry" />
+                <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectTeams">
+            <EntityTypeMapping TypeName="Surveya_DevModel.ProjectTeam">
+              <MappingFragment StoreEntitySet="ProjectTeam">
+                <ScalarProperty Name="HasUploadedDriversLicense" ColumnName="HasUploadedDriversLicense" />
+                <ScalarProperty Name="HasUploadedAccommodationConfirmation" ColumnName="HasUploadedAccommodationConfirmation" />
+                <ScalarProperty Name="HasUploadedETickets" ColumnName="HasUploadedETickets" />
+                <ScalarProperty Name="HasUploadedCustomsClearanceCertificates" ColumnName="HasUploadedCustomsClearanceCertificates" />
+                <ScalarProperty Name="HasUploadedVaccinationCertificates" ColumnName="HasUploadedVaccinationCertificates" />
+                <ScalarProperty Name="HasUploadedVisa" ColumnName="HasUploadedVisa" />
+                <ScalarProperty Name="HasUploadedPassport" ColumnName="HasUploadedPassport" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CompletedRegistration" ColumnName="CompletedRegistration" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Surveys">
+            <EntityTypeMapping TypeName="Surveya_DevModel.Survey">
+              <MappingFragment StoreEntitySet="Survey">
+                <ScalarProperty Name="SurveyTheme" ColumnName="SurveyTheme" />
+                <ScalarProperty Name="IsPageView" ColumnName="IsPageView" />
+                <ScalarProperty Name="SurveyConclusion" ColumnName="SurveyConclusion" />
+                <ScalarProperty Name="EmailedUniqueID" ColumnName="EmailedUniqueID" />
+                <ScalarProperty Name="EmailedSurveyLink" ColumnName="EmailedSurveyLink" />
+                <ScalarProperty Name="EmailedUserIDForResponses" ColumnName="EmailedUserIDForResponses" />
+                <ScalarProperty Name="IsEmailed" ColumnName="IsEmailed" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="EndedByUserID" ColumnName="EndedByUserID" />
+                <ScalarProperty Name="StartedByUserID" ColumnName="StartedByUserID" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="SurveyTitle" ColumnName="SurveyTitle" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyUsers">
+            <EntityTypeMapping TypeName="Surveya_DevModel.CompanyUser">
+              <MappingFragment StoreEntitySet="CompanyUsers">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="Surveya_DevModel.Document">
+              <MappingFragment StoreEntitySet="Documents">
+                <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="IsProjectSpecific" ColumnName="IsProjectSpecific" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="TypeDescription" ColumnName="TypeDescription" />
+                <ScalarProperty Name="TypeNumber" ColumnName="TypeNumber" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivityStreams">
+            <EntityTypeMapping TypeName="Surveya_DevModel.ActivityStream">
+              <MappingFragment StoreEntitySet="ActivityStream">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="ActivityType" ColumnName="ActivityType" />
+                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+                <ScalarProperty Name="ActivityMessage" ColumnName="ActivityMessage" />
+                <ScalarProperty Name="SurveyName" ColumnName="SurveyName" />
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="PerformedByUserFullName" ColumnName="PerformedByUserFullName" />
+                <ScalarProperty Name="PerformedByUserID" ColumnName="PerformedByUserID" />
+                <ScalarProperty Name="AffectedUserFullName" ColumnName="AffectedUserFullName" />
+                <ScalarProperty Name="AffectedUserID" ColumnName="AffectedUserID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetDynamicReportDetails" FunctionName="Surveya_DevModel.Store.GetDynamicReportDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Surveya_DevModel.GetDynamicReportDetails_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetInvoice" FunctionName="Surveya_DevModel.Store.GetInvoice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Surveya_DevModel.GetInvoice_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="VatNumber" ColumnName="VatNumber" />
+                <ScalarProperty Name="PhysicalAddress" ColumnName="PhysicalAddress" />
+                <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+                <ScalarProperty Name="CompanyPackageID" ColumnName="CompanyPackageID" />
+                <ScalarProperty Name="PurchaseOrderNumber" ColumnName="PurchaseOrderNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetInvoiceLineItem" FunctionName="Surveya_DevModel.Store.GetInvoiceLineItem">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Surveya_DevModel.GetInvoiceLineItem_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="LineItem" ColumnName="LineItem" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetReportFilters" FunctionName="Surveya_DevModel.Store.GetReportFilters">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Surveya_DevModel.GetReportFilters_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FilterName" ColumnName="FilterName" />
+                <ScalarProperty Name="FilterCount" ColumnName="FilterCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetResponseSyncNumbers" FunctionName="Surveya_DevModel.Store.GetResponseSyncNumbers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Surveya_DevModel.GetResponseSyncNumbers_Result">
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+                <ScalarProperty Name="NumberSynced" ColumnName="NumberSynced" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetSurveyDetails" FunctionName="Surveya_DevModel.Store.GetSurveyDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Surveya_DevModel.GetSurveyDetails_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SurveyTitle" ColumnName="SurveyTitle" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartedByUserID" ColumnName="StartedByUserID" />
+                <ScalarProperty Name="EndedByUserID" ColumnName="EndedByUserID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="NumberOfSurveyUsers" ColumnName="NumberOfSurveyUsers" />
+                <ScalarProperty Name="NumberOfQuestions" ColumnName="NumberOfQuestions" />
+                <ScalarProperty Name="NumberOfResponses" ColumnName="NumberOfResponses" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ResponseSummaryAllQuestions" FunctionName="Surveya_DevModel.Store.ResponseSummaryAllQuestions">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Surveya_DevModel.ResponseSummaryAllQuestions_Result">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Response" ColumnName="Response" />
+                <ScalarProperty Name="ResponsePerValueCount" ColumnName="ResponsePerValueCount" />
+                <ScalarProperty Name="TotalResponseCount" ColumnName="TotalResponseCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ResponseSummaryPerQuestion" FunctionName="Surveya_DevModel.Store.ResponseSummaryPerQuestion" />
+          <FunctionImportMapping FunctionImportName="UpdateDynamicReportFilter" FunctionName="Surveya_DevModel.Store.UpdateDynamicReportFilter" />
+          <FunctionImportMapping FunctionImportName="GetSurveyQuestions" FunctionName="Surveya_DevModel.Store.GetSurveyQuestions">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Surveya_DevModel.GetSurveyQuestions_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetResponse" FunctionName="Surveya_DevModel.Store.GetResponse">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Surveya_DevModel.GetResponse_Result">
+                <ScalarProperty Name="ResponseID" ColumnName="ResponseID" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupType" ColumnName="GroupType" />
+                <ScalarProperty Name="RowName" ColumnName="RowName" />
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+                <ScalarProperty Name="ResponseValue" ColumnName="ResponseValue" />
+                <ScalarProperty Name="ResponseDateCreated" ColumnName="ResponseDateCreated" />
+                <ScalarProperty Name="PagePosition" ColumnName="PagePosition" />
+                <ScalarProperty Name="GroupPosition" ColumnName="GroupPosition" />
+                <ScalarProperty Name="QuestionPosition" ColumnName="QuestionPosition" />
+                <ScalarProperty Name="RowPosition" ColumnName="RowPosition" />
+                <ScalarProperty Name="ControlType" ColumnName="ControlType" />
+                <ScalarProperty Name="QuestionRowID" ColumnName="QuestionRowID" />
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+                <ScalarProperty Name="SurveyTitle" ColumnName="SurveyTitle" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="ResponseSurveyTitle" ColumnName="ResponseSurveyTitle" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetSurveyQuestionStats" FunctionName="Surveya_DevModel.Store.GetSurveyQuestionStats">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Surveya_DevModel.GetSurveyQuestionStats_Result">
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupType" ColumnName="GroupType" />
+                <ScalarProperty Name="RowName" ColumnName="RowName" />
+                <ScalarProperty Name="ResponseValueQuestionText" ColumnName="ResponseValueQuestionText" />
+                <ScalarProperty Name="ResponseValueQuestionID" ColumnName="ResponseValueQuestionID" />
+                <ScalarProperty Name="ResponseValue" ColumnName="ResponseValue" />
+                <ScalarProperty Name="PagePosition" ColumnName="PagePosition" />
+                <ScalarProperty Name="GroupPosition" ColumnName="GroupPosition" />
+                <ScalarProperty Name="QuestionPosition" ColumnName="QuestionPosition" />
+                <ScalarProperty Name="RowPosition" ColumnName="RowPosition" />
+                <ScalarProperty Name="QuestionRowID" ColumnName="QuestionRowID" />
+                <ScalarProperty Name="NumberAnswers" ColumnName="NumberAnswers" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAuditedResponses" FunctionName="Surveya_DevModel.Store.GetAuditedResponses">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Surveya_DevModel.GetAuditedResponses_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ResponseID" ColumnName="ResponseID" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupType" ColumnName="GroupType" />
+                <ScalarProperty Name="RowName" ColumnName="RowName" />
+                <ScalarProperty Name="ResponseValueQuestionText" ColumnName="ResponseValueQuestionText" />
+                <ScalarProperty Name="ResponseValueQuestionID" ColumnName="ResponseValueQuestionID" />
+                <ScalarProperty Name="ResponseSurveyTitle" ColumnName="ResponseSurveyTitle" />
+                <ScalarProperty Name="ResponseValue" ColumnName="ResponseValue" />
+                <ScalarProperty Name="ResponseDateCreated" ColumnName="ResponseDateCreated" />
+                <ScalarProperty Name="PagePosition" ColumnName="PagePosition" />
+                <ScalarProperty Name="GroupPosition" ColumnName="GroupPosition" />
+                <ScalarProperty Name="QuestionPosition" ColumnName="QuestionPosition" />
+                <ScalarProperty Name="RowPosition" ColumnName="RowPosition" />
+                <ScalarProperty Name="ControlType" ColumnName="ControlType" />
+                <ScalarProperty Name="QuestionRowID" ColumnName="QuestionRowID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetSurveyaDetails" FunctionName="Surveya_DevModel.Store.GetSurveyaDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Surveya_DevModel.GetSurveyaDetails_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Suburb" ColumnName="Suburb" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="VatNumber" ColumnName="VatNumber" />
+                <ScalarProperty Name="InvoiceNote" ColumnName="InvoiceNote" />
+                <ScalarProperty Name="InvoiceTerms" ColumnName="InvoiceTerms" />
+                <ScalarProperty Name="BankAccountName" ColumnName="BankAccountName" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="BankAccountNumber" ColumnName="BankAccountNumber" />
+                <ScalarProperty Name="BankBranchName" ColumnName="BankBranchName" />
+                <ScalarProperty Name="BankBranchCode" ColumnName="BankBranchCode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAuditedResponsesForMatrix" FunctionName="Surveya_DevModel.Store.GetAuditedResponsesForMatrix">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Surveya_DevModel.GetAuditedResponsesForMatrix_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ResponseID" ColumnName="ResponseID" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupType" ColumnName="GroupType" />
+                <ScalarProperty Name="RowName" ColumnName="RowName" />
+                <ScalarProperty Name="ResponseValueQuestionText" ColumnName="ResponseValueQuestionText" />
+                <ScalarProperty Name="ResponseValueQuestionID" ColumnName="ResponseValueQuestionID" />
+                <ScalarProperty Name="ResponseSurveyTitle" ColumnName="ResponseSurveyTitle" />
+                <ScalarProperty Name="ResponseValue" ColumnName="ResponseValue" />
+                <ScalarProperty Name="ResponseDateCreated" ColumnName="ResponseDateCreated" />
+                <ScalarProperty Name="PagePosition" ColumnName="PagePosition" />
+                <ScalarProperty Name="GroupPosition" ColumnName="GroupPosition" />
+                <ScalarProperty Name="QuestionPosition" ColumnName="QuestionPosition" />
+                <ScalarProperty Name="RowPosition" ColumnName="RowPosition" />
+                <ScalarProperty Name="ControlType" ColumnName="ControlType" />
+                <ScalarProperty Name="QuestionRowID" ColumnName="QuestionRowID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAuditedResponsesForMatrix_CRM" FunctionName="Surveya_DevModel.Store.GetAuditedResponsesForMatrix_CRM">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Surveya_DevModel.GetAuditedResponsesForMatrix_CRM_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ResponseID" ColumnName="ResponseID" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupType" ColumnName="GroupType" />
+                <ScalarProperty Name="RowName" ColumnName="RowName" />
+                <ScalarProperty Name="ResponseValueQuestionText" ColumnName="ResponseValueQuestionText" />
+                <ScalarProperty Name="ResponseValueQuestionID" ColumnName="ResponseValueQuestionID" />
+                <ScalarProperty Name="ResponseSurveyTitle" ColumnName="ResponseSurveyTitle" />
+                <ScalarProperty Name="ResponseValue" ColumnName="ResponseValue" />
+                <ScalarProperty Name="ResponseDateCreated" ColumnName="ResponseDateCreated" />
+                <ScalarProperty Name="PagePosition" ColumnName="PagePosition" />
+                <ScalarProperty Name="GroupPosition" ColumnName="GroupPosition" />
+                <ScalarProperty Name="QuestionPosition" ColumnName="QuestionPosition" />
+                <ScalarProperty Name="RowPosition" ColumnName="RowPosition" />
+                <ScalarProperty Name="ControlType" ColumnName="ControlType" />
+                <ScalarProperty Name="QuestionRowID" ColumnName="QuestionRowID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams />
+  </Designer>
+</edmx:Edmx>

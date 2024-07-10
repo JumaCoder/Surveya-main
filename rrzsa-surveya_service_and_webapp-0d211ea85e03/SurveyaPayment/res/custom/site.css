@@ -1,0 +1,42 @@
+html{
+ height:100%;
+ min-height:100%;
+ }
+
+body {
+    height: 100%;
+	min-height:100%;
+    margin: 0px;
+	/*background:url("../../images/background.jpg") no-repeat center center fixed;*/
+    background-color:rgb(220, 220, 220);
+	background-size: cover;
+}
+.logo-background {
+	background-color:white;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+
+.coming-soon-text {
+	font-size:20pt;
+	color:#6374b8;
+}
+
+.construction-text {
+	font-size:26pt;
+	color:#6374b8;
+}
+
+.vertical-center {
+	vertical-align: middle;
+}
+
+.footer {
+	position: absolute;
+	bottom:0px;
+	width:100%;
+	left: 50%;
+	transform: translateX(-50%);
+}

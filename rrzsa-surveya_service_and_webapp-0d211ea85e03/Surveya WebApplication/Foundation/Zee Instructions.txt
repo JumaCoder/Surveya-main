@@ -1,0 +1,13 @@
+﻿When you decide to update foundation do the following:
+------------------------------------------------------
+>Update using Bash on the Foundation Folder(this folder)
+>Before updating make sure you back up this folder
+>In Bash type the following: foundation update
+>Once updated move the relevant files into the Foundation folder
+>Make sure that you do not over-write any sass/scss or Javascript changes you may have made to the core files.
+>Use Scout to compile your scss to css (this will be dumped into the stylesheet folder, inside the foundation folder.)
+
+Should you have any questions / concerns give me a call or drop me an email
+Zahed Rassool - 072 707 4270
+zahed@rrzsa.com
+ 

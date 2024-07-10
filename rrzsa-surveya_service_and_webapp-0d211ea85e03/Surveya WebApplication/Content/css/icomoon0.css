@@ -1,0 +1,84 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?t9a06f');
+  src:  url('../fonts/icomoon.eot?t9a06f#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?t9a06f') format('truetype'),
+    url('../fonts/icomoon.woff?t9a06f') format('woff'),
+    url('../fonts/icomoon.svg?t9a06f#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-add:before {
+  content: "\e900";
+}
+.icon-delete:before {
+  content: "\e901";
+}
+.icon-logic:before {
+  content: "\e902";
+}
+.icon-branding:before {
+  content: "\e903";
+}
+.icon-edit:before {
+  content: "\e904";
+}
+.icon-question:before {
+  content: "\e905";
+}
+.icon-numberusers:before {
+  content: "\e906";
+}
+.icon-recent:before {
+  content: "\e907";
+}
+.icon-roles:before {
+  content: "\e908";
+}
+.icon-signout:before {
+  content: "\e909";
+}
+.icon-signout2:before {
+  content: "\e90a";
+}
+.icon-bell:before {
+  content: "\e90b";
+}
+.icon-flag:before {
+  content: "\e90c";
+}
+.icon-maint:before {
+  content: "\e90d";
+}
+.icon-projects:before {
+  content: "\e90e";
+}
+.icon-surveys:before {
+  content: "\e90f";
+}
+.icon-company:before {
+  content: "\e910";
+}
+.icon-dashboard:before {
+  content: "\e911";
+}
+.icon-users:before {
+  content: "\e912";
+}
+

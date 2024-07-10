@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SurveyaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AuditedResponses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="SurveyID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ResponseID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ResponseCreatedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ResponseDateCreated" Type="datetime" Nullable="false" />
+          <Property Name="ResponseValueID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ResponseValue" Type="varchar(max)" Nullable="false" />
+          <Property Name="ResponseValueQuestionID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ResponseValueQuestionText" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="QuestionText" Type="varchar(max)" Nullable="false" />
+          <Property Name="QuestionType" Type="uniqueidentifier" />
+          <Property Name="Position" Type="bigint" Nullable="false" />
+          <Property Name="GroupID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="RegexPattern" Type="varchar(max)" />
+          <Property Name="MinimumValue" Type="varchar" MaxLength="256" />
+          <Property Name="MaximumValue" Type="varchar" MaxLength="256" />
+          <Property Name="RequiredQuestion" Type="bit" Nullable="false" />
+          <Property Name="ContainsValue" Type="varchar" MaxLength="256" />
+          <Property Name="EqualsValue" Type="varchar" MaxLength="256" />
+          <Property Name="NotEqualsValue" Type="varchar" MaxLength="256" />
+          <Property Name="StartsWithValue" Type="varchar" MaxLength="256" />
+          <Property Name="EndsWithValue" Type="varchar" MaxLength="256" />
+          <Property Name="LengthValue" Type="varchar" MaxLength="256" />
+          <Property Name="CalculationValue" Type="varchar(max)" />
+          <Property Name="HasSum" Type="bit" />
+        </EntityType>
+        <EntityType Name="QuestionGroups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GroupType" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="GroupName" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="Position" Type="bigint" Nullable="false" />
+          <Property Name="SurveyID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParentGroupID" Type="uniqueidentifier" />
+          <Property Name="GroupHeading" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="QuestionRows">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RowText" Type="varchar(max)" Nullable="false" />
+          <Property Name="Position" Type="bigint" Nullable="false" />
+          <Property Name="GroupID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Responses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SurveyID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="IsCompleted" Type="bit" Nullable="false" />
+          <Property Name="SurveyTitle" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="ResponseValues">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Value" Type="varchar(max)" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="QuestionID" Type="uniqueidentifier" />
+          <Property Name="QuestionText" Type="varchar(max)" />
+          <Property Name="ResponseID" Type="uniqueidentifier" />
+          <Property Name="QuestionRowID" Type="uniqueidentifier" />
+        </EntityType>
+        <Function Name="GetAuditedResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="responseID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ResponseID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <EntityContainer Name="SurveyaModelStoreContainer">
+          <EntitySet Name="AuditedResponses" EntityType="Self.AuditedResponses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionGroups" EntityType="Self.QuestionGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionRows" EntityType="Self.QuestionRows" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Responses" EntityType="Self.Responses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResponseValues" EntityType="Self.ResponseValues" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SurveyaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AuditedRespons">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" Nullable="false" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="SurveyID" Type="Guid" Nullable="false" />
+          <Property Name="ResponseID" Type="Guid" Nullable="false" />
+          <Property Name="ResponseCreatedBy" Type="Guid" Nullable="false" />
+          <Property Name="ResponseDateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ResponseValueID" Type="Guid" Nullable="false" />
+          <Property Name="ResponseValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ResponseValueQuestionID" Type="Guid" Nullable="false" />
+          <Property Name="ResponseValueQuestionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="QuestionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QuestionType" Type="Guid" />
+          <Property Name="Position" Type="Int64" Nullable="false" />
+          <Property Name="GroupID" Type="Guid" Nullable="false" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RegexPattern" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MinimumValue" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="MaximumValue" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="RequiredQuestion" Type="Boolean" Nullable="false" />
+          <Property Name="ContainsValue" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EqualsValue" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="NotEqualsValue" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="StartsWithValue" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EndsWithValue" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="LengthValue" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="CalculationValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="HasSum" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="QuestionGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="GroupType" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GroupName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedBy" Type="Guid" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="Position" Type="Int64" Nullable="false" />
+          <Property Name="SurveyID" Type="Guid" Nullable="false" />
+          <Property Name="ParentGroupID" Type="Guid" />
+          <Property Name="GroupHeading" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="QuestionRow">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="RowText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Position" Type="Int64" Nullable="false" />
+          <Property Name="GroupID" Type="Guid" Nullable="false" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Respons">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="SurveyID" Type="Guid" Nullable="false" />
+          <Property Name="CreatedBy" Type="Guid" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsCompleted" Type="Boolean" Nullable="false" />
+          <Property Name="SurveyTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ResponseValue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" Nullable="false" />
+          <Property Name="QuestionID" Type="Guid" />
+          <Property Name="QuestionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ResponseID" Type="Guid" />
+          <Property Name="QuestionRowID" Type="Guid" />
+        </EntityType>
+        <EntityContainer Name="SurveyaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AuditedResponses" EntityType="Self.AuditedRespons" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="QuestionGroups" EntityType="Self.QuestionGroup" />
+          <EntitySet Name="QuestionRows" EntityType="Self.QuestionRow" />
+          <EntitySet Name="Responses" EntityType="Self.Respons" />
+          <EntitySet Name="ResponseValues" EntityType="Self.ResponseValue" />
+          <FunctionImport Name="GetResponse" ReturnType="Collection(SurveyaModel.GetResponse_Result)">
+          <Parameter Name="ResponseID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetAuditedResponse" ReturnType="Collection(SurveyaModel.GetAuditedResponse_Result)">
+            <Parameter Name="responseID" Mode="In" Type="Guid" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetResponse_Result">
+          <Property Type="Guid" Name="ResponseID" Nullable="false" />
+          <Property Type="String" Name="PageName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="GroupType" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="RowName" Nullable="false" />
+          <Property Type="String" Name="QuestionText" Nullable="true" />
+          <Property Type="String" Name="ResponseValue" Nullable="true" />
+          <Property Type="DateTime" Name="ResponseDateCreated" Nullable="false" Precision="23" />
+          <Property Type="Int64" Name="PagePosition" Nullable="true" />
+          <Property Type="Int64" Name="GroupPosition" Nullable="true" />
+          <Property Type="Int64" Name="QuestionPosition" Nullable="true" />
+          <Property Type="Int64" Name="RowPosition" Nullable="true" />
+          <Property Type="String" Name="ControlType" Nullable="true" MaxLength="256" />
+          <Property Type="Guid" Name="QuestionRowID" Nullable="true" />
+          <Property Type="Guid" Name="SurveyID" Nullable="false" />
+          <Property Type="String" Name="SurveyTitle" Nullable="true" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="23" />
+          <Property Type="Guid" Name="CreatedBy" Nullable="false" />
+          <Property Type="String" Name="Purpose" Nullable="true" />
+          <Property Type="DateTime" Name="StartDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreatedByName" Nullable="true" MaxLength="773" />
+          <Property Type="String" Name="ResponseSurveyTitle" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAuditedResponse_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="Guid" Name="ResponseID" Nullable="false" />
+          <Property Type="String" Name="PageName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="GroupType" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="RowName" Nullable="false" />
+          <Property Type="String" Name="ResponseValueQuestionText" Nullable="false" />
+          <Property Type="Guid" Name="ResponseValueQuestionID" Nullable="false" />
+          <Property Type="String" Name="ResponseSurveyTitle" Nullable="true" />
+          <Property Type="String" Name="ResponseValue" Nullable="true" />
+          <Property Type="DateTime" Name="ResponseDateCreated" Nullable="false" Precision="23" />
+          <Property Type="Int64" Name="PagePosition" Nullable="true" />
+          <Property Type="Int64" Name="GroupPosition" Nullable="true" />
+          <Property Type="Int64" Name="QuestionPosition" Nullable="true" />
+          <Property Type="Int64" Name="RowPosition" Nullable="true" />
+          <Property Type="String" Name="ControlType" Nullable="true" MaxLength="256" />
+          <Property Type="Guid" Name="QuestionRowID" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SurveyaModelStoreContainer" CdmEntityContainer="SurveyaEntities">
+          <EntitySetMapping Name="AuditedResponses">
+            <EntityTypeMapping TypeName="SurveyaModel.AuditedRespons">
+              <MappingFragment StoreEntitySet="AuditedResponses">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+                <ScalarProperty Name="ResponseID" ColumnName="ResponseID" />
+                <ScalarProperty Name="ResponseCreatedBy" ColumnName="ResponseCreatedBy" />
+                <ScalarProperty Name="ResponseDateCreated" ColumnName="ResponseDateCreated" />
+                <ScalarProperty Name="ResponseValueID" ColumnName="ResponseValueID" />
+                <ScalarProperty Name="ResponseValue" ColumnName="ResponseValue" />
+                <ScalarProperty Name="ResponseValueQuestionID" ColumnName="ResponseValueQuestionID" />
+                <ScalarProperty Name="ResponseValueQuestionText" ColumnName="ResponseValueQuestionText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="SurveyaModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="RegexPattern" ColumnName="RegexPattern" />
+                <ScalarProperty Name="MinimumValue" ColumnName="MinimumValue" />
+                <ScalarProperty Name="MaximumValue" ColumnName="MaximumValue" />
+                <ScalarProperty Name="RequiredQuestion" ColumnName="RequiredQuestion" />
+                <ScalarProperty Name="ContainsValue" ColumnName="ContainsValue" />
+                <ScalarProperty Name="EqualsValue" ColumnName="EqualsValue" />
+                <ScalarProperty Name="NotEqualsValue" ColumnName="NotEqualsValue" />
+                <ScalarProperty Name="StartsWithValue" ColumnName="StartsWithValue" />
+                <ScalarProperty Name="EndsWithValue" ColumnName="EndsWithValue" />
+                <ScalarProperty Name="LengthValue" ColumnName="LengthValue" />
+                <ScalarProperty Name="CalculationValue" ColumnName="CalculationValue" />
+                <ScalarProperty Name="HasSum" ColumnName="HasSum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionGroups">
+            <EntityTypeMapping TypeName="SurveyaModel.QuestionGroup">
+              <MappingFragment StoreEntitySet="QuestionGroups">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GroupType" ColumnName="GroupType" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+                <ScalarProperty Name="ParentGroupID" ColumnName="ParentGroupID" />
+                <ScalarProperty Name="GroupHeading" ColumnName="GroupHeading" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionRows">
+            <EntityTypeMapping TypeName="SurveyaModel.QuestionRow">
+              <MappingFragment StoreEntitySet="QuestionRows">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RowText" ColumnName="RowText" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Responses">
+            <EntityTypeMapping TypeName="SurveyaModel.Respons">
+              <MappingFragment StoreEntitySet="Responses">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+                <ScalarProperty Name="SurveyTitle" ColumnName="SurveyTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResponseValues">
+            <EntityTypeMapping TypeName="SurveyaModel.ResponseValue">
+              <MappingFragment StoreEntitySet="ResponseValues">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+                <ScalarProperty Name="ResponseID" ColumnName="ResponseID" />
+                <ScalarProperty Name="QuestionRowID" ColumnName="QuestionRowID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetResponse" FunctionName="SurveyaModel.Store.GetResponse">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SurveyaModel.GetResponse_Result">
+                <ScalarProperty Name="ResponseID" ColumnName="ResponseID" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupType" ColumnName="GroupType" />
+                <ScalarProperty Name="RowName" ColumnName="RowName" />
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+                <ScalarProperty Name="ResponseValue" ColumnName="ResponseValue" />
+                <ScalarProperty Name="ResponseDateCreated" ColumnName="ResponseDateCreated" />
+                <ScalarProperty Name="PagePosition" ColumnName="PagePosition" />
+                <ScalarProperty Name="GroupPosition" ColumnName="GroupPosition" />
+                <ScalarProperty Name="QuestionPosition" ColumnName="QuestionPosition" />
+                <ScalarProperty Name="RowPosition" ColumnName="RowPosition" />
+                <ScalarProperty Name="ControlType" ColumnName="ControlType" />
+                <ScalarProperty Name="QuestionRowID" ColumnName="QuestionRowID" />
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+                <ScalarProperty Name="SurveyTitle" ColumnName="SurveyTitle" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="ResponseSurveyTitle" ColumnName="ResponseSurveyTitle" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAuditedResponse" FunctionName="SurveyaModel.Store.GetAuditedResponse">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SurveyaModel.GetAuditedResponse_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ResponseID" ColumnName="ResponseID" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupType" ColumnName="GroupType" />
+                <ScalarProperty Name="RowName" ColumnName="RowName" />
+                <ScalarProperty Name="ResponseValueQuestionText" ColumnName="ResponseValueQuestionText" />
+                <ScalarProperty Name="ResponseValueQuestionID" ColumnName="ResponseValueQuestionID" />
+                <ScalarProperty Name="ResponseSurveyTitle" ColumnName="ResponseSurveyTitle" />
+                <ScalarProperty Name="ResponseValue" ColumnName="ResponseValue" />
+                <ScalarProperty Name="ResponseDateCreated" ColumnName="ResponseDateCreated" />
+                <ScalarProperty Name="PagePosition" ColumnName="PagePosition" />
+                <ScalarProperty Name="GroupPosition" ColumnName="GroupPosition" />
+                <ScalarProperty Name="QuestionPosition" ColumnName="QuestionPosition" />
+                <ScalarProperty Name="RowPosition" ColumnName="RowPosition" />
+                <ScalarProperty Name="ControlType" ColumnName="ControlType" />
+                <ScalarProperty Name="QuestionRowID" ColumnName="QuestionRowID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

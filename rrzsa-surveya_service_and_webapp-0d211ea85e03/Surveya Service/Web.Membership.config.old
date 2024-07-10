@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+  </configSections>
+  <connectionStrings>
+    <!-- TODO: change this to the server's path -->
+    <add name="RRZ_Membership" connectionString="data source=192.168.7.3\rrz_sql_14;initial catalog=Surveya_Dev;user id=rrz_dev;password=.Munch@B1scuit5;" />
+  </connectionStrings>
+  <appSettings>
+    <add key="aspnet:UseTaskFriendlySynchronizationContext" value="true" />
+    <add key="ErrorFilePath" value="~/Logs/ErrorFile.log" />
+    <add key="LogFilePath" value="~/Logs/LogFile.log" />
+    <add key="EmailTemplateBasePath" value="~/EmailTemplates/" />
+    
+    <!-- email address all emails are sent from -->
+    <add key="systemEmail" value="noreply@rrzsa.com" />
+
+    <!-- TODO: change this to the server's path -->
+    <!-- links to referenced pages in emails -->
+    <add key="baseLinkPathProfile" value="http://192.168.7.3:4355/Administration/Profile" />
+    <add key="baseLinkPathLogin" value="http://192.168.7.3:4355/Account/Login" />
+    <add key="baseLinkPathPayment" value="http://192.168.7.3:4355/Administration/PackagePayment" />
+    <add key="baseLinkPathForgotPassword" value="http://192.168.7.3:4355/Account/ResetPassword?id=" />
+    <add key="baseLinkPathMaintenance" value="http://192.168.7.3:4355/Administration/Maintenance" />
+    <add key="baseLinkPathAddCompanyUsers" value="http://192.168.7.3:4355/Administration/Users" />
+    <add key="baseLinkPathVerifyEmail" value="http://192.168.7.3:4355/Account/VerifyEmail?verifyID=" />
+    
+    <!-- link to the report viewer -->
+    <!--<add key="baseLinkPathReportViewer" value="http://surveya.rapidresultz.com/Reports/View" />-->
+    <add key="baseLinkPathReportViewer" value="http://192.168.7.3:4355/Reports/View" />
+    
+    <!-- link for policies / documents -->
+    <add key="baseLinkPathPrivacyPolicy" value="http://rapidresultz.com/downloads/rrz-privacy-policy.pdf" />
+    <add key="baseLinkPathPCIPOPIPolicy" value="http://rapidresultz.com/downloads/rrz-popi-policy.pdf" />
+    <add key="baseLinkPathUserManual" value="http://surveya.rapidresultz.com/UserManual.pdf" />
+    
+    <!-- Link for images for surveya logo -->
+    <add key="defaultLogoPath" value="http://surveya.rapidresultz.com/Content/Images/Surveyor_thumb.png" />
+    <add key="defaultThumbLogoPath" value="http://surveya.rapidresultz.com/Content/Images/Surveyor_thumb.png" />
+   
+    <!-- TODO: change this to the server's path -->
+    <!-- Link for company image to be displayed in the email -->
+    <add key="emailImage" value="http://192.168.7.3:4355/companyThumb.html?id=" />
+
+    <!-- Link for where the documents manager documents will be saved -->
+    <add key="DocumentManagerPath" value="\\192.168.7.3\development\UAT_SIT\Surveya\SurveyaService\DocumentManager" />
+
+    <!-- path to where the audited response are uploaded to-->
+    <add key="BulkAuditedResponsesPath" value="~/AuditedResponse/" />
+
+  </appSettings>
+  <system.net>
+    <mailSettings>
+      <smtp from="noreply@rrzsa.com">
+        <network host="mail.rrzsa.com" password="M{nt@g3Pg$M)" port="587" userName="noreply@rrzsa.com" enableSsl="false" />
+      </smtp>
+    </mailSettings>
+  </system.net>
+  <system.web>
+    <!--<customErrors mode="Off"/>-->
+    <authentication mode="None"></authentication>
+    <membership defaultProvider="SqlProvider">
+      <providers>
+        <clear />
+        <add name="SqlProvider" type="System.Web.Security.SqlMembershipProvider" connectionStringName="RRZ_Membership" minRequiredPasswordLength="5" minRequiredNonalphanumericCharacters="0" applicationName="Surveya_Service" enablePasswordRetrieval="false" enablePasswordReset="true" requiresUniqueEmail="true" requiresQuestionAndAnswer="false" passwordFormat="Hashed" />
+      </providers>
+    </membership>
+    <roleManager enabled="true" defaultProvider="RoleProvider">
+      <providers>
+        <clear />
+        <add name="RoleProvider" type="System.Web.Security.SqlRoleProvider" connectionStringName="RRZ_Membership" applicationName="Surveya_Service" />
+      </providers>
+    </roleManager>
+    <compilation debug="true" targetFramework="4.5" />
+    <httpRuntime targetFramework="4.5" />
+  </system.web>
+  <system.web.extensions>
+    <scripting>
+      <webServices>
+        <jsonSerialization maxJsonLength="102400000" />
+      </webServices>
+    </scripting>
+  </system.web.extensions>
+  <system.serviceModel>
+    <services>
+      <service behaviorConfiguration="ATServiceBehaviour" name="Surveya_Service.Surveya_Service">
+        <endpoint address="" behaviorConfiguration="web" binding="webHttpBinding" bindingConfiguration="RestServiceBindingConfig" contract="Surveya_Service.ISurveya_Service" />
+      </service>
+    </services>
+    <bindings>
+      <webHttpBinding>
+        <binding crossDomainScriptAccessEnabled="true" name="RestServiceBindingConfig" maxReceivedMessageSize="2147483647" maxBufferSize="2147483647" closeTimeout="00:59:00" openTimeout="00:59:00" receiveTimeout="00:59:00" sendTimeout="00:59:00">
+          <readerQuotas maxDepth="2147483647" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647" />
+          <!--<security mode="Transport"></security>-->
+          <security mode="None"></security>
+        </binding>
+      </webHttpBinding>
+    </bindings>
+    <behaviors>
+      <serviceBehaviors>
+        <behavior name="ATServiceBehaviour">
+          <!-- To avoid disclosing metadata information, set the values below to false before deployment -->
+          <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true" />
+          <!-- To receive exception details in faults for debugging purposes, set the value below to true.  Set to false before deployment to avoid disclosing exception information -->
+          <serviceDebug includeExceptionDetailInFaults="true" />
+        </behavior>
+      </serviceBehaviors>
+      <endpointBehaviors>
+        <behavior name="web">
+          <webHttp defaultOutgoingResponseFormat="Json" helpEnabled="true" />
+          <dataContractSerializer maxItemsInObjectGraph="2147483646" />
+        </behavior>
+      </endpointBehaviors>
+    </behaviors>
+    <protocolMapping>
+      <!--<add binding="basicHttpsBinding" scheme="https" />-->
+      <add binding="basicHttpsBinding" scheme="http" />
+    </protocolMapping>
+    <serviceHostingEnvironment aspNetCompatibilityEnabled="true" multipleSiteBindingsEnabled="true" />
+  </system.serviceModel>
+  <!--The followinng can be left out-->
+  <system.webServer>
+    <modules runAllManagedModulesForAllRequests="true" />
+    <!--
+        To browse web app root directory during debugging, set the value below to true.
+        Set to false before deployment to avoid disclosing web app folder information.
+      -->
+    <directoryBrowse enabled="true" />
+  </system.webServer>
+  <!-- end of what can be left out -->
+  <system.diagnostics>
+    <sources>
+      <source name="System.ServiceModel" switchValue="Information, ActivityTracing" propagateActivity="true">
+        <listeners>
+          <add name="traceListener" type="System.Diagnostics.XmlWriterTraceListener" initializeData="c:\log\Traces.svclog" />
+        </listeners>
+      </source>
+    </sources>
+  </system.diagnostics>
+</configuration>
